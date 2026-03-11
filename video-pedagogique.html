@@ -1,0 +1,1000 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LA VIDÉO PÉDAGOGIQUE — Guide pour Enseignants</title>
+<style>
+  /* === PALETTE RETROFUTURISME === */
+  :root {
+    --retro-teal: #127676;
+    --retro-orange: #E4632E;
+    --retro-jaune: #E3A535;
+    --retro-ink: #0D1617;
+    --retro-paper: #F2EFE6;
+    --retro-teal-light: rgba(18,118,118,0.12);
+    --retro-orange-light: rgba(228,99,46,0.12);
+    --retro-jaune-light: rgba(227,165,53,0.15);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--retro-ink) url('Background.jpg') center center / cover no-repeat fixed;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    color: var(--retro-ink);
+    min-height: 100vh;
+    padding: 70px;
+  }
+
+  /* === PAGE FRAME ART NOUVEAU === */
+  .page-frame {
+    background: var(--retro-paper);
+    border: 4px solid var(--retro-orange);
+    border-radius: 24px 8px 24px 8px;
+    position: relative;
+    min-height: calc(100vh - 80px);
+    overflow: hidden;
+  }
+
+  .corner-flourish {
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    color: var(--retro-teal);
+    opacity: 0.5;
+    pointer-events: none;
+    z-index: 10;
+  }
+  .corner-flourish.top-left { top: 6px; left: 6px; }
+  .corner-flourish.top-right { top: 6px; right: 6px; transform: scaleX(-1); }
+  .corner-flourish.bottom-left { bottom: 6px; left: 6px; transform: scaleY(-1); }
+  .corner-flourish.bottom-right { bottom: 6px; right: 6px; transform: scale(-1); }
+
+  /* === HEADER === */
+  .hero {
+    background: var(--retro-teal);
+    padding: 52px 48px 40px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 300px; height: 300px;
+    border: 3px solid var(--retro-orange);
+    border-radius: 50%;
+    opacity: 0.2;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -40px; left: 40%;
+    width: 180px; height: 180px;
+    border: 2px solid var(--retro-jaune);
+    border-radius: 50%;
+    opacity: 0.15;
+  }
+
+  .hero-eyebrow {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.25em;
+    color: var(--retro-jaune);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  .hero h1 {
+    font-family: Impact, 'Anton', 'Oswald', sans-serif;
+    font-size: clamp(2.2rem, 5vw, 4rem);
+    letter-spacing: 0.08em;
+    color: var(--retro-paper);
+    text-transform: uppercase;
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+  .hero h1 span {
+    color: var(--retro-jaune);
+  }
+
+  .hero-sub {
+    font-size: 1rem;
+    color: var(--retro-paper);
+    opacity: 0.85;
+    max-width: 520px;
+    margin-top: 16px;
+    line-height: 1.6;
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 24px;
+    background: var(--retro-orange);
+    color: var(--retro-paper);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 8px 18px;
+    border-radius: 50px;
+    border: 2px solid var(--retro-jaune);
+  }
+
+  /* === NAV === */
+  .nav-bar {
+    display: flex;
+    gap: 0;
+    background: var(--retro-ink);
+    border-bottom: 3px solid var(--retro-teal);
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .nav-bar::-webkit-scrollbar { display: none; }
+
+  .nav-btn {
+    flex-shrink: 0;
+    background: transparent;
+    border: none;
+    color: var(--retro-paper);
+    font-family: inherit;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 14px 22px;
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    margin-bottom: -3px;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+  .nav-btn:hover { color: var(--retro-jaune); }
+  .nav-btn.active {
+    color: var(--retro-jaune);
+    border-bottom-color: var(--retro-orange);
+    background: rgba(18,118,118,0.15);
+  }
+
+  /* === SECTIONS === */
+  .section {
+    display: none;
+    padding: 40px 48px;
+    animation: fadeIn 0.3s ease;
+  }
+  .section.active { display: block; }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* === SECTION TITLES === */
+  .section-title {
+    font-family: Impact, 'Anton', sans-serif;
+    font-size: 1.6rem;
+    letter-spacing: 0.1em;
+    color: var(--retro-teal);
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .section-intro {
+    font-size: 1rem;
+    color: var(--retro-ink);
+    opacity: 0.75;
+    margin-bottom: 32px;
+    line-height: 1.6;
+    max-width: 640px;
+  }
+
+  /* === SÉPARATEUR === */
+  .retro-sep {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 32px 0;
+    color: var(--retro-teal);
+  }
+  .retro-sep::before, .retro-sep::after {
+    content: '';
+    flex: 1;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--retro-teal) 20%, var(--retro-teal) 80%, transparent);
+  }
+  .retro-sep .flourish { font-size: 1.4rem; opacity: 0.7; }
+
+  /* === PRINCIPE CARD (section 1) === */
+  .principe-card {
+    background: var(--retro-paper);
+    border: 3px solid var(--retro-teal);
+    border-radius: 24px 8px 24px 8px;
+    box-shadow: inset 0 0 0 2px var(--retro-orange);
+    padding: 28px 32px;
+    margin-bottom: 20px;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .principe-card:hover {
+    transform: translateY(-3px);
+    box-shadow: inset 0 0 0 2px var(--retro-orange), 0 8px 24px rgba(18,118,118,0.15);
+  }
+  .principe-card h3 {
+    font-family: Impact, 'Anton', sans-serif;
+    font-size: 1.1rem;
+    letter-spacing: 0.08em;
+    color: var(--retro-teal);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .principe-card h3 .num {
+    background: var(--retro-orange);
+    color: var(--retro-paper);
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.9rem;
+    flex-shrink: 0;
+  }
+  .principe-card p {
+    font-size: 0.95rem;
+    line-height: 1.65;
+    color: var(--retro-ink);
+  }
+  .principe-card .example {
+    margin-top: 12px;
+    padding: 10px 14px;
+    background: var(--retro-teal-light);
+    border-left: 3px solid var(--retro-teal);
+    border-radius: 0 8px 8px 0;
+    font-size: 0.88rem;
+    color: var(--retro-ink);
+    font-style: italic;
+  }
+  .ref-tag {
+    display: inline-block;
+    margin-top: 10px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: var(--retro-teal);
+    background: var(--retro-teal-light);
+    padding: 3px 10px;
+    border-radius: 50px;
+  }
+
+  /* === GRID UTILITES === */
+  .utilites-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+  }
+
+  .utilite-card {
+    background: var(--retro-paper);
+    border: 3px solid var(--retro-teal);
+    border-radius: 24px 8px 24px 8px;
+    box-shadow: inset 0 0 0 2px var(--retro-orange);
+    padding: 24px 22px;
+    cursor: pointer;
+    transition: all 0.25s;
+    position: relative;
+    overflow: hidden;
+  }
+  .utilite-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--retro-teal), var(--retro-orange), var(--retro-jaune));
+  }
+  .utilite-card:hover {
+    transform: translateY(-4px);
+    box-shadow: inset 0 0 0 2px var(--retro-orange), 0 10px 28px rgba(18,118,118,0.18);
+  }
+
+  .utilite-icon {
+    font-size: 2.2rem;
+    margin-bottom: 12px;
+    display: block;
+  }
+  .utilite-card h3 {
+    font-family: Impact, 'Anton', sans-serif;
+    font-size: 1rem;
+    letter-spacing: 0.08em;
+    color: var(--retro-teal);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .utilite-card p {
+    font-size: 0.88rem;
+    line-height: 1.6;
+    color: var(--retro-ink);
+  }
+  .utilite-detail {
+    display: none;
+    margin-top: 14px;
+    padding-top: 14px;
+    border-top: 2px solid var(--retro-teal-light);
+    font-size: 0.85rem;
+    line-height: 1.65;
+    color: var(--retro-ink);
+  }
+  .utilite-card.open .utilite-detail { display: block; }
+  .utilite-card.open {
+    border-color: var(--retro-orange);
+    box-shadow: inset 0 0 0 2px var(--retro-teal);
+  }
+  .toggle-hint {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 12px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--retro-orange);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  /* === ILLUSIONS TABLE === */
+  .illusions-wrap {
+    overflow-x: auto;
+  }
+  .illusions-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.92rem;
+  }
+  .illusions-table th {
+    background: var(--retro-teal);
+    color: var(--retro-paper);
+    font-family: Impact, 'Anton', sans-serif;
+    font-size: 0.85rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 14px 18px;
+    text-align: left;
+  }
+  .illusions-table th:first-child { border-radius: 8px 0 0 0; }
+  .illusions-table th:last-child { border-radius: 0 8px 0 0; }
+  .illusions-table td {
+    padding: 14px 18px;
+    border-bottom: 1px solid rgba(18,118,118,0.15);
+    vertical-align: top;
+    line-height: 1.55;
+  }
+  .illusions-table tr:hover td { background: var(--retro-teal-light); }
+  .illusion-label {
+    font-weight: 700;
+    color: var(--retro-orange);
+  }
+  .illusion-reality { color: var(--retro-ink); }
+
+  /* === CHECKLIST (section pratique) === */
+  .checklist-group {
+    margin-bottom: 28px;
+  }
+  .checklist-title {
+    font-family: Impact, 'Anton', sans-serif;
+    font-size: 1rem;
+    letter-spacing: 0.1em;
+    color: var(--retro-teal);
+    text-transform: uppercase;
+    margin-bottom: 14px;
+    padding-left: 8px;
+    border-left: 4px solid var(--retro-orange);
+  }
+  .checklist-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 12px 16px;
+    border-radius: 8px;
+    margin-bottom: 8px;
+    cursor: pointer;
+    transition: background 0.2s;
+    border: 2px solid transparent;
+  }
+  .checklist-item:hover { background: var(--retro-teal-light); border-color: var(--retro-teal); }
+  .checklist-item.checked {
+    background: rgba(18,118,118,0.08);
+    border-color: var(--retro-teal);
+  }
+  .check-box {
+    width: 24px; height: 24px;
+    border: 2px solid var(--retro-teal);
+    border-radius: 4px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    font-size: 0.9rem;
+    color: var(--retro-teal);
+    background: var(--retro-paper);
+    margin-top: 1px;
+    transition: all 0.2s;
+  }
+  .checklist-item.checked .check-box {
+    background: var(--retro-teal);
+    color: var(--retro-paper);
+  }
+  .check-text { font-size: 0.92rem; line-height: 1.55; color: var(--retro-ink); }
+  .check-text strong { color: var(--retro-teal); }
+
+  .progress-bar-wrap {
+    margin: 20px 0 32px;
+    background: rgba(18,118,118,0.12);
+    border-radius: 50px;
+    height: 12px;
+    border: 2px solid var(--retro-teal);
+    overflow: hidden;
+  }
+  .progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, var(--retro-teal), var(--retro-orange), var(--retro-jaune));
+    border-radius: 50px;
+    transition: width 0.4s ease;
+    width: 0%;
+  }
+  .progress-label {
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: var(--retro-teal);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  /* === MAYER SECTION === */
+  .theory-block {
+    background: var(--retro-ink);
+    color: var(--retro-paper);
+    border-radius: 24px 8px 24px 8px;
+    padding: 28px 32px;
+    margin-bottom: 20px;
+    border: 3px solid var(--retro-teal);
+    position: relative;
+    overflow: hidden;
+  }
+  .theory-block::before {
+    content: '';
+    position: absolute;
+    top: -30px; right: -30px;
+    width: 120px; height: 120px;
+    border: 2px solid var(--retro-orange);
+    border-radius: 50%;
+    opacity: 0.2;
+  }
+  .theory-block h3 {
+    font-family: Impact, 'Anton', sans-serif;
+    font-size: 1.1rem;
+    letter-spacing: 0.1em;
+    color: var(--retro-jaune);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .theory-block p { font-size: 0.92rem; line-height: 1.65; opacity: 0.9; }
+  .theory-block .theory-ref {
+    display: inline-block;
+    margin-top: 14px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: var(--retro-jaune);
+    background: rgba(227,165,53,0.15);
+    padding: 4px 12px;
+    border-radius: 50px;
+    border: 1px solid var(--retro-jaune);
+  }
+
+  /* === DUREE SLIDER === */
+  .duration-demo {
+    background: var(--retro-paper);
+    border: 3px solid var(--retro-teal);
+    border-radius: 16px;
+    padding: 28px 32px;
+    margin-bottom: 24px;
+    box-shadow: inset 0 0 0 2px var(--retro-orange);
+  }
+  .duration-demo label {
+    font-family: Impact, 'Anton', sans-serif;
+    font-size: 0.9rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--retro-teal);
+    display: block;
+    margin-bottom: 16px;
+  }
+  .duration-slider {
+    width: 100%;
+    -webkit-appearance: none;
+    height: 8px;
+    border-radius: 50px;
+    outline: none;
+    margin-bottom: 12px;
+    cursor: pointer;
+  }
+  .duration-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 24px; height: 24px;
+    border-radius: 50%;
+    background: var(--retro-orange);
+    border: 3px solid var(--retro-teal);
+    cursor: pointer;
+  }
+  .duration-feedback {
+    font-size: 0.95rem;
+    font-weight: 700;
+    padding: 10px 16px;
+    border-radius: 8px;
+    margin-top: 10px;
+  }
+
+  /* === FOOTER === */
+  .site-footer {
+    background: var(--retro-teal);
+    padding: 24px 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .footer-text {
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--retro-paper);
+    opacity: 0.8;
+  }
+  .footer-refs {
+    font-size: 0.72rem;
+    color: var(--retro-jaune);
+    letter-spacing: 0.05em;
+  }
+
+  /* === PILL BUTTON === */
+  .retro-btn-pill {
+    display: inline-flex;
+    border-radius: 50px;
+    border: 3px solid var(--retro-teal);
+    overflow: hidden;
+    cursor: pointer;
+    font-family: inherit;
+    text-decoration: none;
+    margin-top: 16px;
+  }
+  .retro-btn-pill-text {
+    background: var(--retro-jaune);
+    color: var(--retro-ink);
+    padding: 0.7rem 1.8rem;
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    border: none;
+    cursor: pointer;
+  }
+  .retro-btn-pill-icon {
+    background: var(--retro-orange);
+    color: var(--retro-paper);
+    width: 52px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem;
+    border: none;
+    cursor: pointer;
+  }
+  .retro-btn-pill:hover .retro-btn-pill-text { background: var(--retro-jaune); filter: brightness(1.05); }
+
+  /* Mobile */
+  @media (max-width: 640px) {
+    .hero, .section { padding: 28px 20px; }
+    .site-footer { padding: 20px; }
+    .section-title { font-size: 1.3rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page-frame">
+
+  <!-- COINS ART NOUVEAU SVG -->
+  <svg class="corner-flourish top-left" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M8 72 C8 40 40 8 72 8" stroke="currentColor" stroke-width="2" fill="none"/>
+    <path d="M8 72 C8 55 20 40 35 32 C50 24 60 10 72 8" stroke="currentColor" stroke-width="1" fill="none" opacity="0.5"/>
+    <circle cx="12" cy="68" r="4" fill="currentColor" opacity="0.6"/>
+    <circle cx="68" cy="12" r="4" fill="currentColor" opacity="0.6"/>
+    <path d="M20 60 Q28 46 40 38" stroke="currentColor" stroke-width="1.5" fill="none" opacity="0.4"/>
+  </svg>
+  <svg class="corner-flourish top-right" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M8 72 C8 40 40 8 72 8" stroke="currentColor" stroke-width="2" fill="none"/>
+    <path d="M8 72 C8 55 20 40 35 32 C50 24 60 10 72 8" stroke="currentColor" stroke-width="1" fill="none" opacity="0.5"/>
+    <circle cx="12" cy="68" r="4" fill="currentColor" opacity="0.6"/>
+    <circle cx="68" cy="12" r="4" fill="currentColor" opacity="0.6"/>
+  </svg>
+  <svg class="corner-flourish bottom-left" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M8 72 C8 40 40 8 72 8" stroke="currentColor" stroke-width="2" fill="none"/>
+    <path d="M8 72 C8 55 20 40 35 32 C50 24 60 10 72 8" stroke="currentColor" stroke-width="1" fill="none" opacity="0.5"/>
+    <circle cx="12" cy="68" r="4" fill="currentColor" opacity="0.6"/>
+    <circle cx="68" cy="12" r="4" fill="currentColor" opacity="0.6"/>
+  </svg>
+  <svg class="corner-flourish bottom-right" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M8 72 C8 40 40 8 72 8" stroke="currentColor" stroke-width="2" fill="none"/>
+    <path d="M8 72 C8 55 20 40 35 32 C50 24 60 10 72 8" stroke="currentColor" stroke-width="1" fill="none" opacity="0.5"/>
+    <circle cx="12" cy="68" r="4" fill="currentColor" opacity="0.6"/>
+    <circle cx="68" cy="12" r="4" fill="currentColor" opacity="0.6"/>
+  </svg>
+
+  <!-- === HERO === -->
+  <div class="hero">
+    <div class="hero-eyebrow">✦ Formation &amp; Pédagogie Numérique</div>
+    <h1>La <span>Vidéo</span><br>Pédagogique</h1>
+    <p class="hero-sub">Ce que vous devez vraiment savoir avant de filmer, diffuser, ou regarder une vidéo avec vos apprenants.</p>
+    <span class="hero-badge">⚙ Guide pour Enseignants</span>
+  </div>
+
+  <!-- === NAV === -->
+  <nav class="nav-bar" id="mainNav">
+    <button class="nav-btn active" onclick="showSection('principe', this)">◈ Le Principe</button>
+    <button class="nav-btn" onclick="showSection('utilites', this)">◈ Les Utilités</button>
+    <button class="nav-btn" onclick="showSection('illusions', this)">◈ Les Illusions</button>
+    <button class="nav-btn" onclick="showSection('duree', this)">◈ La Durée</button>
+    <button class="nav-btn" onclick="showSection('pratique', this)">◈ En Pratique</button>
+  </nav>
+
+  <!-- ============== SECTION 1 : PRINCIPE ============== -->
+  <section class="section active" id="sec-principe">
+    <h2 class="section-title">Le Principe Fondamental</h2>
+    <p class="section-intro">La vidéo pédagogique n'est pas un cours filmé. Son efficacité repose sur une mécanique cognitive précise que tout enseignant doit comprendre.</p>
+
+    <div class="theory-block">
+      <h3>🧠 La Théorie de Mayer (2001)</h3>
+      <p>Richard Mayer a démontré que le cerveau dispose de <strong style="color:var(--retro-jaune)">deux canaux d'entrée distincts</strong> : un canal auditif et un canal visuel. Lorsque la vidéo utilise les deux simultanément et de façon cohérente, la compréhension et la rétention s'améliorent significativement — c'est le principe de <em>modalité</em>.</p>
+      <p style="margin-top:10px">À condition essentielle : que les deux canaux se <strong style="color:var(--retro-jaune)">complètent</strong> sans se surcharger mutuellement. Une voix qui lit le texte affiché à l'écran est contre-productive (effet redondance).</p>
+      <span class="theory-ref">📚 Mayer, R.E. — Multimedia Learning, 2001</span>
+    </div>
+
+    <div class="retro-sep"><span class="flourish">❧</span></div>
+
+    <div class="principe-card">
+      <h3><span class="num">1</span>Deux canaux, pas un</h3>
+      <p>Le canal visuel traite les images, schémas, mouvements. Le canal auditif traite les mots parlés. Une bonne vidéo distribue l'information sur ces deux voies — et ne duplique pas la même information dans les deux.</p>
+      <div class="example">💡 Contre-exemple : lire à voix haute un texte affiché à l'écran surcharge sans rien ajouter.</div>
+    </div>
+
+    <div class="principe-card">
+      <h3><span class="num">2</span>La charge cognitive (Sweller, 1988)</h3>
+      <p>John Sweller a établi que la mémoire de travail est limitée. Une vidéo bien conçue réduit la <strong>charge extrinsèque</strong> (liée au format) pour libérer de la capacité pour la <strong>charge germane</strong> (construction du sens). Trop d'informations simultanées à l'écran produit l'effet inverse.</p>
+      <span class="ref-tag">📚 Sweller, 1988 · Théorie de la Charge Cognitive</span>
+    </div>
+
+    <div class="principe-card">
+      <h3><span class="num">3</span>Ce que la vidéo n'est pas</h3>
+      <p>La vidéo ne remplace pas l'enseignant. Elle ne crée pas automatiquement de l'apprentissage. Elle est un <strong>vecteur d'exposition au contenu</strong> — et un vecteur efficace uniquement si elle est intégrée dans une séquence avec un avant (mise en situation) et un après (activité, discussion, ancrage).</p>
+      <div class="example">⚠ Regarder une vidéo sans activité cognitive associée = mémorisation proche de zéro après 24h.</div>
+    </div>
+  </section>
+
+  <!-- ============== SECTION 2 : UTILITES ============== -->
+  <section class="section" id="sec-utilites">
+    <h2 class="section-title">Les 6 Utilités Clés</h2>
+    <p class="section-intro">Cliquez sur chaque carte pour développer l'explication détaillée et les conseils pratiques.</p>
+
+    <div class="utilites-grid">
+
+      <div class="utilite-card" onclick="toggleUtilite(this)">
+        <span class="utilite-icon">⏸</span>
+        <h3>Flexibilité du Rythme</h3>
+        <p>L'apprenant peut mettre en pause, revenir en arrière, revoir. Impossible dans un exposé magistral.</p>
+        <div class="utilite-detail">
+          <strong>Pourquoi c'est décisif :</strong> Pour les publics hétérogènes, les apprenants allophones, ou ceux qui traitent l'information plus lentement, cette flexibilité change tout. Elle réduit l'anxiété liée au rythme imposé par l'enseignant.<br><br>
+          <strong>En pratique :</strong> Encouragez vos apprenants à visionner avec un crayon — noter, pauser, noter encore. C'est ce geste qui transforme le visionnage passif en apprentissage actif.
+        </div>
+        <span class="toggle-hint">▼ Développer</span>
+      </div>
+
+      <div class="utilite-card" onclick="toggleUtilite(this)">
+        <span class="utilite-icon">🎬</span>
+        <h3>Visualisation du Mouvement</h3>
+        <p>Certains contenus sont intrinsèquement dynamiques : gestes professionnels, procédures, évolutions temporelles.</p>
+        <div class="utilite-detail">
+          <strong>Ce qu'aucun texte ne peut faire :</strong> Montrer comment tenir un outil, réaliser une soudure, pratiquer un massage. La vidéo permet la démonstration de séquences que les images fixes et le texte ne peuvent qu'approximer.<br><br>
+          <strong>Pertinence particulière</strong> dans les formations professionnelles (métiers manuels, soins, techniques).
+        </div>
+        <span class="toggle-hint">▼ Développer</span>
+      </div>
+
+      <div class="utilite-card" onclick="toggleUtilite(this)">
+        <span class="utilite-icon">🔄</span>
+        <h3>Classe Inversée</h3>
+        <p>Le contenu informatif est visionné en dehors de la classe. Le temps en présentiel est libéré pour la pratique.</p>
+        <div class="utilite-detail">
+          <strong>Le principe de Bergmann &amp; Sams (2012) :</strong> Si les apprenants ont été exposés au contenu avant la séance, l'enseignant peut consacrer 100% du temps de face-à-face à l'exercice, la remédiation et l'interaction.<br><br>
+          <strong>Attention :</strong> La classe inversée ne fonctionne que si les apprenants ont réellement visionné la vidéo. Prévoyez un court dispositif de vérification (quiz rapide, question d'entrée).
+        </div>
+        <span class="toggle-hint">▼ Développer</span>
+      </div>
+
+      <div class="utilite-card" onclick="toggleUtilite(this)">
+        <span class="utilite-icon">💡</span>
+        <h3>Émotion &amp; Mémorisation</h3>
+        <p>Une narration incarnée active la mémoire épisodique davantage qu'un texte académique.</p>
+        <div class="utilite-detail">
+          <strong>Immordino-Yang (2015) :</strong> Les travaux sur émotion et cognition montrent que l'affect joue un rôle actif dans la consolidation des apprentissages. On retient mieux ce qu'on a vécu comme une histoire.<br><br>
+          <strong>Implication pratique :</strong> Une vidéo avec un récit, un exemple concret, une voix vivante sera bien plus mémorisée qu'un texte narré sur fond de slides.
+        </div>
+        <span class="toggle-hint">▼ Développer</span>
+      </div>
+
+      <div class="utilite-card" onclick="toggleUtilite(this)">
+        <span class="utilite-icon">🖱</span>
+        <h3>Interactivité Possible</h3>
+        <p>Intégrée dans H5P ou d'autres outils, la vidéo peut devenir un parcours actif avec questions intercalées.</p>
+        <div class="utilite-detail">
+          <strong>H5P Interactive Video :</strong> Permet d'insérer des questions à choix multiple, des points d'arrêt avec texte, des branchements. La vidéo cesse d'être un support passif.<br><br>
+          <strong>Lien avec Bloom :</strong> Selon le niveau taxonomique visé (mémoriser, comprendre, appliquer, analyser), on n'utilise pas la vidéo de la même façon — ni les mêmes types d'interactions.
+        </div>
+        <span class="toggle-hint">▼ Développer</span>
+      </div>
+
+      <div class="utilite-card" onclick="toggleUtilite(this)">
+        <span class="utilite-icon">♿</span>
+        <h3>Accessibilité &amp; Différenciation</h3>
+        <p>Sous-titres, ralenti, répétitions illimitées : la vidéo peut s'adapter aux besoins spécifiques.</p>
+        <div class="utilite-detail">
+          <strong>Pour les apprenants allophones :</strong> La combinaison image + parole + possibilité de sous-titres en langue d'origine est un levier d'inclusion puissant.<br><br>
+          <strong>Pour les DYS :</strong> Le canal auditif peut compenser les difficultés de lecture, à condition que la vidéo soit bien conçue vocalement (débit, clarté, articulation).
+        </div>
+        <span class="toggle-hint">▼ Développer</span>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============== SECTION 3 : ILLUSIONS ============== -->
+  <section class="section" id="sec-illusions">
+    <h2 class="section-title">Les Illusions à Déjouer</h2>
+    <p class="section-intro">Ce que les enseignants croient souvent à propos de la vidéo — et ce que la recherche en dit réellement.</p>
+
+    <div class="theory-block">
+      <h3>⚠ L'Illusion de Fluidité Cognitive</h3>
+      <p>Regarder une vidéo bien faite donne une <strong style="color:var(--retro-jaune)">sensation de compréhension</strong> qui peut être trompeuse. Cette fluidité perceptive (le contenu "coule" facilement) masque l'absence de véritable traitement en profondeur. On confond facilité de décodage et apprentissage réel.</p>
+      <span class="theory-ref">📚 Reber &amp; Schwarz · Processing Fluency Research</span>
+    </div>
+
+    <div class="retro-sep"><span class="flourish">✿</span></div>
+
+    <div class="illusions-wrap">
+      <table class="illusions-table">
+        <thead>
+          <tr>
+            <th>❌ L'Illusion</th>
+            <th>✔ La Réalité</th>
+            <th>→ Ce que vous pouvez faire</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="illusion-label">« Regarder = Comprendre »</span></td>
+            <td class="illusion-reality">Sans ancrage cognitif actif, la vidéo laisse peu de traces durables après 24h. La sensation de compréhension pendant le visionnage est souvent illusoire.</td>
+            <td>Ajoutez systématiquement une activité après : quiz, questions ouvertes, carte mentale, discussion.</td>
+          </tr>
+          <tr>
+            <td><span class="illusion-label">« Plus c'est long, plus c'est complet »</span></td>
+            <td class="illusion-reality">L'étude du MIT (Guo et al., 2014) montre une chute d'engagement significative dès 6-9 minutes. Au-delà de 15 min, le visionnage devient largement passif.</td>
+            <td>Un objectif = une vidéo courte. Découpez les contenus longs en modules de 5-8 min maximum.</td>
+          </tr>
+          <tr>
+            <td><span class="illusion-label">« La vidéo motive automatiquement »</span></td>
+            <td class="illusion-reality">Elle capte l'attention au départ (effet nouveauté), mais cette motivation ne se maintient que si le contenu est perçu comme pertinent et le rythme bien calibré.</td>
+            <td>Commencez par une question-problème ou un exemple concret dès les 30 premières secondes.</td>
+          </tr>
+          <tr>
+            <td><span class="illusion-label">« N'importe quelle vidéo fait l'affaire »</span></td>
+            <td class="illusion-reality">Une vidéo mal conçue (voix monotone, slides surchargés, absence de structure) peut nuire à l'apprentissage en créant une surcharge cognitive inutile.</td>
+            <td>Évaluez la vidéo avant de l'utiliser : clarté vocale, rythme, pertinence des visuels, structure narrative.</td>
+          </tr>
+          <tr>
+            <td><span class="illusion-label">« La vidéo remplace l'enseignant »</span></td>
+            <td class="illusion-reality">La vidéo transmet de l'information. Elle ne peut pas ajuster en temps réel, détecter la confusion d'un apprenant ou créer du lien. Ce sont des fonctions irremplaçables de l'humain.</td>
+            <td>Utilisez la vidéo pour ce qu'elle fait bien, et réservez le temps humain pour ce qu'elle ne peut pas faire.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ============== SECTION 4 : DURÉE ============== -->
+  <section class="section" id="sec-duree">
+    <h2 class="section-title">La Question de la Durée</h2>
+    <p class="section-intro">Testez l'impact de la durée sur l'engagement de vos apprenants.</p>
+
+    <div class="duration-demo">
+      <label>⏱ Durée de la vidéo — déplacez le curseur</label>
+      <input type="range" class="duration-slider" id="durationSlider" min="1" max="30" value="5"
+        oninput="updateDuration(this.value)"
+        style="background: linear-gradient(90deg, var(--retro-teal) 16%, var(--retro-orange) 60%, var(--retro-jaune) 100%);">
+      <div id="durationFeedback" class="duration-feedback" style="background:var(--retro-teal-light);border-left:4px solid var(--retro-teal);border-radius:8px;padding:12px 16px;"></div>
+    </div>
+
+    <div class="retro-sep"><span class="flourish">❁</span></div>
+
+    <div class="theory-block">
+      <h3>📊 L'Étude MIT — Guo et al. (2014)</h3>
+      <p>Analyse de 6,9 millions d'interactions sur des MOOCs edX et Coursera. Les chercheurs ont mesuré le temps médian de visionnage selon la durée des vidéos. Résultats : l'engagement est maximum pour les vidéos de <strong style="color:var(--retro-jaune)">moins de 6 minutes</strong>. Au-delà de 9 minutes, le temps de visionnage effectif plafonne, quelle que soit la durée réelle de la vidéo.</p>
+      <p style="margin-top:10px">Autrement dit : une vidéo de 20 minutes ne sera pas plus regardée qu'une de 12 minutes.</p>
+      <span class="theory-ref">📚 Guo, P.J., Kim, J., Rubin, R. — MIT CSAIL, 2014</span>
+    </div>
+
+    <div class="principe-card">
+      <h3><span class="num">→</span>La Règle du Découpage</h3>
+      <p>Si votre contenu nécessite plus de 8 minutes pour être exposé, découpez-le en <strong>modules indépendants</strong> avec un objectif unique chacun. Cela permet aussi une navigation non-linéaire : l'apprenant qui maîtrise déjà un point peut le sauter.</p>
+      <div class="example">💡 Format recommandé : 3-6 min par capsule, un seul concept ou compétence par capsule.</div>
+    </div>
+  </section>
+
+  <!-- ============== SECTION 5 : PRATIQUE ============== -->
+  <section class="section" id="sec-pratique">
+    <h2 class="section-title">En Pratique — Checklist</h2>
+    <p class="section-intro">Cochez les critères que vous appliquez déjà. L'objectif n'est pas la perfection immédiate, mais la progression consciente.</p>
+
+    <div class="progress-label" id="progressLabel">Progression : 0 / 12 critères</div>
+    <div class="progress-bar-wrap">
+      <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <div class="checklist-group">
+      <div class="checklist-title">✦ Avant de diffuser une vidéo</div>
+
+      <div class="checklist-item" onclick="toggleCheck(this)">
+        <div class="check-box">✓</div>
+        <div class="check-text"><strong>Objectif unique :</strong> cette vidéo répond à une seule question ou enseigne une seule compétence.</div>
+      </div>
+      <div class="checklist-item" onclick="toggleCheck(this)">
+        <div class="check-box">✓</div>
+        <div class="check-text"><strong>Durée adaptée :</strong> moins de 8 minutes, idéalement entre 3 et 6 min.</div>
+      </div>
+      <div class="checklist-item" onclick="toggleCheck(this)">
+        <div class="check-box">✓</div>
+        <div class="check-text"><strong>Pertinence vérifiée :</strong> j'ai visionné la vidéo entièrement et évalué sa qualité pédagogique.</div>
+      </div>
+      <div class="checklist-item" onclick="toggleCheck(this)">
+        <div class="check-box">✓</div>
+        <div class="check-text"><strong>Mise en situation :</strong> j'ai posé une question ou problème AVANT le visionnage pour orienter l'attention.</div>
+      </div>
+    </div>
+
+    <div class="checklist-group">
+      <div class="checklist-title">✦ Pendant ou après le visionnage</div>
+
+      <div class="checklist-item" onclick="toggleCheck(this)">
+        <div class="check-box">✓</div>
+        <div class="check-text"><strong>Activité associée :</strong> une tâche cognitive suit le visionnage (quiz, synthèse, application).</div>
+      </div>
+      <div class="checklist-item" onclick="toggleCheck(this)">
+        <div class="check-box">✓</div>
+        <div class="check-text"><strong>Prise de notes encouragée :</strong> les apprenants sont invités à noter, questionner, schématiser.</div>
+      </div>
+      <div class="checklist-item" onclick="toggleCheck(this)">
+        <div class="check-box">✓</div>
+        <div class="check-text"><strong>Vérification de compréhension :</strong> je prévois un temps d'échange ou de retour sur les points obscurs.</div>
+      </div>
+      <div class="checklist-item" onclick="toggleCheck(this)">
+        <div class="check-box">✓</div>
+        <div class="check-text"><strong>Lien avec la séquence :</strong> la vidéo s'articule avec ce qui précède et ce qui suit dans ma planification.</div>
+      </div>
+    </div>
+
+    <div class="checklist-group">
+      <div class="checklist-title">✦ Si vous produisez vos propres vidéos</div>
+
+      <div class="checklist-item" onclick="toggleCheck(this)">
+        <div class="check-box">✓</div>
+        <div class="check-text"><strong>Audio soigné :</strong> la voix est claire, le débit modéré, l'environnement sonore calme.</div>
+      </div>
+      <div class="checklist-item" onclick="toggleCheck(this)">
+        <div class="check-box">✓</div>
+        <div class="check-text"><strong>Visuels complémentaires :</strong> les images/schémas ajoutent du sens, ils ne dupliquent pas ce qui est dit.</div>
+      </div>
+      <div class="checklist-item" onclick="toggleCheck(this)">
+        <div class="check-box">✓</div>
+        <div class="check-text"><strong>Accroche forte :</strong> les 30 premières secondes posent clairement le problème ou l'enjeu.</div>
+      </div>
+      <div class="checklist-item" onclick="toggleCheck(this)">
+        <div class="check-box">✓</div>
+        <div class="check-text"><strong>Accessibilité :</strong> sous-titres disponibles ou prévisibles pour les apprenants qui en ont besoin.</div>
+      </div>
+    </div>
+
+    <div class="retro-sep"><span class="flourish">⚘</span></div>
+
+    <div class="theory-block">
+      <h3>📖 Pour aller plus loin</h3>
+      <p><strong style="color:var(--retro-jaune)">Mayer, R.E.</strong> — Multimedia Learning (2001, 2e éd. 2009) · Cambridge University Press<br><br>
+      <strong style="color:var(--retro-jaune)">Sweller, J.</strong> — Cognitive Load During Problem Solving (1988) · Cognitive Science<br><br>
+      <strong style="color:var(--retro-jaune)">Bergmann &amp; Sams</strong> — Flip Your Classroom (2012) · ISTE<br><br>
+      <strong style="color:var(--retro-jaune)">Guo, Kim &amp; Rubin</strong> — How Video Production Affects Student Engagement (2014) · MIT CSAIL<br><br>
+      <strong style="color:var(--retro-jaune)">Immordino-Yang, M.H.</strong> — Emotions, Learning, and the Brain (2015) · Norton</p>
+    </div>
+  </section>
+
+  <!-- === FOOTER === -->
+  <footer class="site-footer">
+    <span class="footer-text">◈ Ressource ouverte pour enseignants</span>
+    <span class="footer-refs">Mayer 2001 · Sweller 1988 · Bergmann &amp; Sams 2012 · Guo et al. 2014 · Immordino-Yang 2015</span>
+  </footer>
+
+</div>
+
+<script>
+  // === NAVIGATION ===
+  function showSection(id, btn) {
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('sec-' + id).classList.add('active');
+    btn.classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  // === UTILITES TOGGLE ===
+  function toggleUtilite(card) {
+    const isOpen = card.classList.contains('open');
+    document.querySelectorAll('.utilite-card').forEach(c => {
+      c.classList.remove('open');
+      const hint = c.querySelector('.toggle-hint');
+      if (hint) hint.textContent = '▼ Développer';
+    });
+    if (!isOpen) {
+      card.classList.add('open');
+      const hint = card.querySelector('.toggle-hint');
+      if (hint) hint.textContent = '▲ Réduire';
+    }
+  }
+
+  // === DURATION SLIDER ===
+  function updateDuration(val) {
+    val = parseInt(val);
+    const fb = document.getElementById('durationFeedback');
+    let msg, style;
+    if (val <= 3) {
+      msg = `✅ ${val} minute${val>1?'s':''} — Optimal. Engagement maximal, contenu ciblé. Format idéal pour une capsule de microlearning.`;
+      style = 'background:rgba(18,118,118,0.12);border-left:4px solid #127676;color:#0D1617;';
+    } else if (val <= 6) {
+      msg = `✅ ${val} minutes — Très bon. Dans la zone de confort attentionnel. L'apprenant reste engagé si le rythme est bien tenu.`;
+      style = 'background:rgba(18,118,118,0.12);border-left:4px solid #127676;color:#0D1617;';
+    } else if (val <= 9) {
+      msg = `⚠️ ${val} minutes — Limite. Selon Guo et al. (MIT, 2014), l'engagement commence à chuter à partir de 6-9 min. Assurez-vous d'un rythme soutenu et d'une accroche forte.`;
+      style = 'background:rgba(227,165,53,0.15);border-left:4px solid #E3A535;color:#0D1617;';
+    } else if (val <= 15) {
+      msg = `⚠️ ${val} minutes — Risqué. Une proportion significative d'apprenants décrochera avant la fin. Envisagez de découper en 2 capsules avec un objectif distinct chacune.`;
+      style = 'background:rgba(227,165,53,0.15);border-left:4px solid #E3A535;color:#0D1617;';
+    } else {
+      msg = `❌ ${val} minutes — Problématique. Au-delà de 15 min, le visionnage effectif plafonne indépendamment de la durée réelle. Une vidéo de ${val} min ne sera pas mieux regardée qu'une de 12 min. Découpez impérativement.`;
+      style = 'background:rgba(228,99,46,0.12);border-left:4px solid #E4632E;color:#0D1617;';
+    }
+    fb.innerHTML = msg;
+    fb.style.cssText = style + 'padding:12px 16px;border-radius:8px;font-size:0.92rem;line-height:1.55;';
+  }
+  updateDuration(5);
+
+  // === CHECKLIST ===
+  function toggleCheck(item) {
+    item.classList.toggle('checked');
+    updateProgress();
+  }
+
+  function updateProgress() {
+    const total = document.querySelectorAll('.checklist-item').length;
+    const checked = document.querySelectorAll('.checklist-item.checked').length;
+    const pct = Math.round((checked / total) * 100);
+    document.getElementById('progressBar').style.width = pct + '%';
+    document.getElementById('progressLabel').textContent = `Progression : ${checked} / ${total} critères (${pct}%)`;
+  }
+</script>
+</body>
+</html>
