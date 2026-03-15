@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr" id="htmlRoot">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LA VIDÉO PÉDAGOGIQUE — Guide pour Enseignants</title>
+<title id="pageTitle">LA VIDÉO PÉDAGOGIQUE — Guide pour Enseignants</title>
 <style>
   /* === PALETTE RETROFUTURISME === */
   :root {
@@ -50,6 +50,38 @@
   .corner-flourish.top-right { top: 6px; right: 6px; transform: scaleX(-1); }
   .corner-flourish.bottom-left { bottom: 6px; left: 6px; transform: scaleY(-1); }
   .corner-flourish.bottom-right { bottom: 6px; right: 6px; transform: scale(-1); }
+
+  /* === LANG SWITCHER === */
+  .lang-switcher {
+    position: absolute;
+    top: 18px;
+    right: 24px;
+    display: flex;
+    z-index: 20;
+    border: 2px solid var(--retro-jaune);
+    border-radius: 50px;
+    overflow: hidden;
+  }
+  .lang-btn {
+    background: transparent;
+    border: none;
+    color: var(--retro-paper);
+    font-family: inherit;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    padding: 6px 14px;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-transform: uppercase;
+  }
+  .lang-btn.active {
+    background: var(--retro-jaune);
+    color: var(--retro-ink);
+  }
+  .lang-btn:hover:not(.active) {
+    background: rgba(227,165,53,0.25);
+  }
 
   /* === HEADER === */
   .hero {
@@ -593,9 +625,11 @@
 
   /* Mobile */
   @media (max-width: 640px) {
+    body { padding: 16px; }
     .hero, .section { padding: 28px 20px; }
     .site-footer { padding: 20px; }
     .section-title { font-size: 1.3rem; }
+    .lang-switcher { top: 12px; right: 12px; }
   }
 </style>
 </head>
@@ -632,125 +666,132 @@
 
   <!-- === HERO === -->
   <div class="hero">
-    <div class="hero-eyebrow">✦ Formation &amp; Pédagogie Numérique</div>
-    <h1>La <span>Vidéo</span><br>Pédagogique</h1>
-    <p class="hero-sub">Ce que vous devez vraiment savoir avant de filmer, diffuser, ou regarder une vidéo avec vos apprenants.</p>
-    <span class="hero-badge">⚙ Guide pour Enseignants</span>
+
+    <!-- LANG SWITCHER -->
+    <div class="lang-switcher">
+      <button class="lang-btn active" id="btnFR" onclick="setLang('fr')">FR</button>
+      <button class="lang-btn" id="btnEN" onclick="setLang('en')">EN</button>
+    </div>
+
+    <div class="hero-eyebrow" data-i18n-html="hero-eyebrow">✦ Formation &amp; Pédagogie Numérique</div>
+    <h1 data-i18n-html="hero-h1">La <span>Vidéo</span><br>Pédagogique</h1>
+    <p class="hero-sub" data-i18n="hero-sub">Ce que vous devez vraiment savoir avant de filmer, diffuser, ou regarder une vidéo avec vos apprenants.</p>
+    <span class="hero-badge" data-i18n="hero-badge">⚙ Guide pour Enseignants</span>
   </div>
 
   <!-- === NAV === -->
   <nav class="nav-bar" id="mainNav">
-    <button class="nav-btn active" onclick="showSection('principe', this)">◈ Le Principe</button>
-    <button class="nav-btn" onclick="showSection('utilites', this)">◈ Les Utilités</button>
-    <button class="nav-btn" onclick="showSection('illusions', this)">◈ Les Illusions</button>
-    <button class="nav-btn" onclick="showSection('duree', this)">◈ La Durée</button>
-    <button class="nav-btn" onclick="showSection('pratique', this)">◈ En Pratique</button>
+    <button class="nav-btn active" onclick="showSection('principe', this)" data-i18n="nav-principe">◈ Le Principe</button>
+    <button class="nav-btn" onclick="showSection('utilites', this)" data-i18n="nav-utilites">◈ Les Utilités</button>
+    <button class="nav-btn" onclick="showSection('illusions', this)" data-i18n="nav-illusions">◈ Les Illusions</button>
+    <button class="nav-btn" onclick="showSection('duree', this)" data-i18n="nav-duree">◈ La Durée</button>
+    <button class="nav-btn" onclick="showSection('pratique', this)" data-i18n="nav-pratique">◈ En Pratique</button>
   </nav>
 
   <!-- ============== SECTION 1 : PRINCIPE ============== -->
   <section class="section active" id="sec-principe">
-    <h2 class="section-title">Le Principe Fondamental</h2>
-    <p class="section-intro">La vidéo pédagogique n'est pas un cours filmé. Son efficacité repose sur une mécanique cognitive précise que tout enseignant doit comprendre.</p>
+    <h2 class="section-title" data-i18n="s1-title">Le Principe Fondamental</h2>
+    <p class="section-intro" data-i18n="s1-intro">La vidéo pédagogique n'est pas un cours filmé. Son efficacité repose sur une mécanique cognitive précise que tout enseignant doit comprendre.</p>
 
     <div class="theory-block">
-      <h3>🧠 La Théorie de Mayer (2001)</h3>
-      <p>Richard Mayer a démontré que le cerveau dispose de <strong style="color:var(--retro-jaune)">deux canaux d'entrée distincts</strong> : un canal auditif et un canal visuel. Lorsque la vidéo utilise les deux simultanément et de façon cohérente, la compréhension et la rétention s'améliorent significativement — c'est le principe de <em>modalité</em>.</p>
-      <p style="margin-top:10px">À condition essentielle : que les deux canaux se <strong style="color:var(--retro-jaune)">complètent</strong> sans se surcharger mutuellement. Une voix qui lit le texte affiché à l'écran est contre-productive (effet redondance).</p>
-      <span class="theory-ref">📚 Mayer, R.E. — Multimedia Learning, 2001</span>
+      <h3 data-i18n="s1-th1-h3">🧠 La Théorie de Mayer (2001)</h3>
+      <p data-i18n-html="s1-th1-p1">Richard Mayer a démontré que le cerveau dispose de <strong style="color:var(--retro-jaune)">deux canaux d'entrée distincts</strong> : un canal auditif et un canal visuel. Lorsque la vidéo utilise les deux simultanément et de façon cohérente, la compréhension et la rétention s'améliorent significativement — c'est le principe de <em>modalité</em>.</p>
+      <p style="margin-top:10px" data-i18n-html="s1-th1-p2">À condition essentielle : que les deux canaux se <strong style="color:var(--retro-jaune)">complètent</strong> sans se surcharger mutuellement. Une voix qui lit le texte affiché à l'écran est contre-productive (effet redondance).</p>
+      <span class="theory-ref" data-i18n="s1-th1-ref">📚 Mayer, R.E. — Multimedia Learning, 2001</span>
     </div>
 
     <div class="retro-sep"><span class="flourish">❧</span></div>
 
     <div class="principe-card">
-      <h3><span class="num">1</span>Deux canaux, pas un</h3>
-      <p>Le canal visuel traite les images, schémas, mouvements. Le canal auditif traite les mots parlés. Une bonne vidéo distribue l'information sur ces deux voies — et ne duplique pas la même information dans les deux.</p>
-      <div class="example">💡 Contre-exemple : lire à voix haute un texte affiché à l'écran surcharge sans rien ajouter.</div>
+      <h3><span class="num">1</span><span data-i18n="s1-c1-title">Deux canaux, pas un</span></h3>
+      <p data-i18n="s1-c1-p">Le canal visuel traite les images, schémas, mouvements. Le canal auditif traite les mots parlés. Une bonne vidéo distribue l'information sur ces deux voies — et ne duplique pas la même information dans les deux.</p>
+      <div class="example" data-i18n="s1-c1-example">💡 Contre-exemple : lire à voix haute un texte affiché à l'écran surcharge sans rien ajouter.</div>
     </div>
 
     <div class="principe-card">
-      <h3><span class="num">2</span>La charge cognitive (Sweller, 1988)</h3>
-      <p>John Sweller a établi que la mémoire de travail est limitée. Une vidéo bien conçue réduit la <strong>charge extrinsèque</strong> (liée au format) pour libérer de la capacité pour la <strong>charge germane</strong> (construction du sens). Trop d'informations simultanées à l'écran produit l'effet inverse.</p>
-      <span class="ref-tag">📚 Sweller, 1988 · Théorie de la Charge Cognitive</span>
+      <h3><span class="num">2</span><span data-i18n="s1-c2-title">La charge cognitive (Sweller, 1988)</span></h3>
+      <p data-i18n-html="s1-c2-p">John Sweller a établi que la mémoire de travail est limitée. Une vidéo bien conçue réduit la <strong>charge extrinsèque</strong> (liée au format) pour libérer de la capacité pour la <strong>charge germane</strong> (construction du sens). Trop d'informations simultanées à l'écran produit l'effet inverse.</p>
+      <span class="ref-tag" data-i18n="s1-c2-ref">📚 Sweller, 1988 · Théorie de la Charge Cognitive</span>
     </div>
 
     <div class="principe-card">
-      <h3><span class="num">3</span>Ce que la vidéo n'est pas</h3>
-      <p>La vidéo ne remplace pas l'enseignant. Elle ne crée pas automatiquement de l'apprentissage. Elle est un <strong>vecteur d'exposition au contenu</strong> — et un vecteur efficace uniquement si elle est intégrée dans une séquence avec un avant (mise en situation) et un après (activité, discussion, ancrage).</p>
-      <div class="example">⚠ Regarder une vidéo sans activité cognitive associée = mémorisation proche de zéro après 24h.</div>
+      <h3><span class="num">3</span><span data-i18n="s1-c3-title">Ce que la vidéo n'est pas</span></h3>
+      <p data-i18n-html="s1-c3-p">La vidéo ne remplace pas l'enseignant. Elle ne crée pas automatiquement de l'apprentissage. Elle est un <strong>vecteur d'exposition au contenu</strong> — et un vecteur efficace uniquement si elle est intégrée dans une séquence avec un avant (mise en situation) et un après (activité, discussion, ancrage).</p>
+      <div class="example" data-i18n="s1-c3-example">⚠ Regarder une vidéo sans activité cognitive associée = mémorisation proche de zéro après 24h.</div>
     </div>
   </section>
 
   <!-- ============== SECTION 2 : UTILITES ============== -->
   <section class="section" id="sec-utilites">
-    <h2 class="section-title">Les 6 Utilités Clés</h2>
-    <p class="section-intro">Cliquez sur chaque carte pour développer l'explication détaillée et les conseils pratiques.</p>
+    <h2 class="section-title" data-i18n="s2-title">Les 6 Utilités Clés</h2>
+    <p class="section-intro" data-i18n="s2-intro">Cliquez sur chaque carte pour développer l'explication détaillée et les conseils pratiques.</p>
 
     <div class="utilites-grid">
 
       <div class="utilite-card" onclick="toggleUtilite(this)">
         <span class="utilite-icon">⏸</span>
-        <h3>Flexibilité du Rythme</h3>
-        <p>L'apprenant peut mettre en pause, revenir en arrière, revoir. Impossible dans un exposé magistral.</p>
-        <div class="utilite-detail">
+        <h3 data-i18n="s2-u1-h3">Flexibilité du Rythme</h3>
+        <p data-i18n="s2-u1-p">L'apprenant peut mettre en pause, revenir en arrière, revoir. Impossible dans un exposé magistral.</p>
+        <div class="utilite-detail" data-i18n-html="s2-u1-detail">
           <strong>Pourquoi c'est décisif :</strong> Pour les publics hétérogènes, les apprenants allophones, ou ceux qui traitent l'information plus lentement, cette flexibilité change tout. Elle réduit l'anxiété liée au rythme imposé par l'enseignant.<br><br>
           <strong>En pratique :</strong> Encouragez vos apprenants à visionner avec un crayon — noter, pauser, noter encore. C'est ce geste qui transforme le visionnage passif en apprentissage actif.
         </div>
-        <span class="toggle-hint">▼ Développer</span>
+        <span class="toggle-hint" data-i18n="hint-expand">▼ Développer</span>
       </div>
 
       <div class="utilite-card" onclick="toggleUtilite(this)">
         <span class="utilite-icon">🎬</span>
-        <h3>Visualisation du Mouvement</h3>
-        <p>Certains contenus sont intrinsèquement dynamiques : gestes professionnels, procédures, évolutions temporelles.</p>
-        <div class="utilite-detail">
+        <h3 data-i18n="s2-u2-h3">Visualisation du Mouvement</h3>
+        <p data-i18n="s2-u2-p">Certains contenus sont intrinsèquement dynamiques : gestes professionnels, procédures, évolutions temporelles.</p>
+        <div class="utilite-detail" data-i18n-html="s2-u2-detail">
           <strong>Ce qu'aucun texte ne peut faire :</strong> Montrer comment tenir un outil, réaliser une soudure, pratiquer un massage. La vidéo permet la démonstration de séquences que les images fixes et le texte ne peuvent qu'approximer.<br><br>
           <strong>Pertinence particulière</strong> dans les formations professionnelles (métiers manuels, soins, techniques).
         </div>
-        <span class="toggle-hint">▼ Développer</span>
+        <span class="toggle-hint" data-i18n="hint-expand">▼ Développer</span>
       </div>
 
       <div class="utilite-card" onclick="toggleUtilite(this)">
         <span class="utilite-icon">🔄</span>
-        <h3>Classe Inversée</h3>
-        <p>Le contenu informatif est visionné en dehors de la classe. Le temps en présentiel est libéré pour la pratique.</p>
-        <div class="utilite-detail">
+        <h3 data-i18n="s2-u3-h3">Classe Inversée</h3>
+        <p data-i18n="s2-u3-p">Le contenu informatif est visionné en dehors de la classe. Le temps en présentiel est libéré pour la pratique.</p>
+        <div class="utilite-detail" data-i18n-html="s2-u3-detail">
           <strong>Le principe de Bergmann &amp; Sams (2012) :</strong> Si les apprenants ont été exposés au contenu avant la séance, l'enseignant peut consacrer 100% du temps de face-à-face à l'exercice, la remédiation et l'interaction.<br><br>
           <strong>Attention :</strong> La classe inversée ne fonctionne que si les apprenants ont réellement visionné la vidéo. Prévoyez un court dispositif de vérification (quiz rapide, question d'entrée).
         </div>
-        <span class="toggle-hint">▼ Développer</span>
+        <span class="toggle-hint" data-i18n="hint-expand">▼ Développer</span>
       </div>
 
       <div class="utilite-card" onclick="toggleUtilite(this)">
         <span class="utilite-icon">💡</span>
-        <h3>Émotion &amp; Mémorisation</h3>
-        <p>Une narration incarnée active la mémoire épisodique davantage qu'un texte académique.</p>
-        <div class="utilite-detail">
+        <h3 data-i18n="s2-u4-h3">Émotion &amp; Mémorisation</h3>
+        <p data-i18n="s2-u4-p">Une narration incarnée active la mémoire épisodique davantage qu'un texte académique.</p>
+        <div class="utilite-detail" data-i18n-html="s2-u4-detail">
           <strong>Immordino-Yang (2015) :</strong> Les travaux sur émotion et cognition montrent que l'affect joue un rôle actif dans la consolidation des apprentissages. On retient mieux ce qu'on a vécu comme une histoire.<br><br>
           <strong>Implication pratique :</strong> Une vidéo avec un récit, un exemple concret, une voix vivante sera bien plus mémorisée qu'un texte narré sur fond de slides.
         </div>
-        <span class="toggle-hint">▼ Développer</span>
+        <span class="toggle-hint" data-i18n="hint-expand">▼ Développer</span>
       </div>
 
       <div class="utilite-card" onclick="toggleUtilite(this)">
         <span class="utilite-icon">🖱</span>
-        <h3>Interactivité Possible</h3>
-        <p>Intégrée dans H5P ou d'autres outils, la vidéo peut devenir un parcours actif avec questions intercalées.</p>
-        <div class="utilite-detail">
+        <h3 data-i18n="s2-u5-h3">Interactivité Possible</h3>
+        <p data-i18n="s2-u5-p">Intégrée dans H5P ou d'autres outils, la vidéo peut devenir un parcours actif avec questions intercalées.</p>
+        <div class="utilite-detail" data-i18n-html="s2-u5-detail">
           <strong>H5P Interactive Video :</strong> Permet d'insérer des questions à choix multiple, des points d'arrêt avec texte, des branchements. La vidéo cesse d'être un support passif.<br><br>
           <strong>Lien avec Bloom :</strong> Selon le niveau taxonomique visé (mémoriser, comprendre, appliquer, analyser), on n'utilise pas la vidéo de la même façon — ni les mêmes types d'interactions.
         </div>
-        <span class="toggle-hint">▼ Développer</span>
+        <span class="toggle-hint" data-i18n="hint-expand">▼ Développer</span>
       </div>
 
       <div class="utilite-card" onclick="toggleUtilite(this)">
         <span class="utilite-icon">♿</span>
-        <h3>Accessibilité &amp; Différenciation</h3>
-        <p>Sous-titres, ralenti, répétitions illimitées : la vidéo peut s'adapter aux besoins spécifiques.</p>
-        <div class="utilite-detail">
+        <h3 data-i18n="s2-u6-h3">Accessibilité &amp; Différenciation</h3>
+        <p data-i18n="s2-u6-p">Sous-titres, ralenti, répétitions illimitées : la vidéo peut s'adapter aux besoins spécifiques.</p>
+        <div class="utilite-detail" data-i18n-html="s2-u6-detail">
           <strong>Pour les apprenants allophones :</strong> La combinaison image + parole + possibilité de sous-titres en langue d'origine est un levier d'inclusion puissant.<br><br>
           <strong>Pour les DYS :</strong> Le canal auditif peut compenser les difficultés de lecture, à condition que la vidéo soit bien conçue vocalement (débit, clarté, articulation).
         </div>
-        <span class="toggle-hint">▼ Développer</span>
+        <span class="toggle-hint" data-i18n="hint-expand">▼ Développer</span>
       </div>
 
     </div>
@@ -758,13 +799,13 @@
 
   <!-- ============== SECTION 3 : ILLUSIONS ============== -->
   <section class="section" id="sec-illusions">
-    <h2 class="section-title">Les Illusions à Déjouer</h2>
-    <p class="section-intro">Ce que les enseignants croient souvent à propos de la vidéo — et ce que la recherche en dit réellement.</p>
+    <h2 class="section-title" data-i18n="s3-title">Les Illusions à Déjouer</h2>
+    <p class="section-intro" data-i18n="s3-intro">Ce que les enseignants croient souvent à propos de la vidéo — et ce que la recherche en dit réellement.</p>
 
     <div class="theory-block">
-      <h3>⚠ L'Illusion de Fluidité Cognitive</h3>
-      <p>Regarder une vidéo bien faite donne une <strong style="color:var(--retro-jaune)">sensation de compréhension</strong> qui peut être trompeuse. Cette fluidité perceptive (le contenu "coule" facilement) masque l'absence de véritable traitement en profondeur. On confond facilité de décodage et apprentissage réel.</p>
-      <span class="theory-ref">📚 Reber &amp; Schwarz · Processing Fluency Research</span>
+      <h3 data-i18n="s3-th1-h3">⚠ L'Illusion de Fluidité Cognitive</h3>
+      <p data-i18n-html="s3-th1-p">Regarder une vidéo bien faite donne une <strong style="color:var(--retro-jaune)">sensation de compréhension</strong> qui peut être trompeuse. Cette fluidité perceptive (le contenu "coule" facilement) masque l'absence de véritable traitement en profondeur. On confond facilité de décodage et apprentissage réel.</p>
+      <span class="theory-ref" data-i18n-html="s3-th1-ref">📚 Reber &amp; Schwarz · Processing Fluency Research</span>
     </div>
 
     <div class="retro-sep"><span class="flourish">✿</span></div>
@@ -773,36 +814,36 @@
       <table class="illusions-table">
         <thead>
           <tr>
-            <th>❌ L'Illusion</th>
-            <th>✔ La Réalité</th>
-            <th>→ Ce que vous pouvez faire</th>
+            <th data-i18n="s3-th-col1">❌ L'Illusion</th>
+            <th data-i18n="s3-th-col2">✔ La Réalité</th>
+            <th data-i18n="s3-th-col3">→ Ce que vous pouvez faire</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td><span class="illusion-label">« Regarder = Comprendre »</span></td>
-            <td class="illusion-reality">Sans ancrage cognitif actif, la vidéo laisse peu de traces durables après 24h. La sensation de compréhension pendant le visionnage est souvent illusoire.</td>
-            <td>Ajoutez systématiquement une activité après : quiz, questions ouvertes, carte mentale, discussion.</td>
+            <td><span class="illusion-label" data-i18n="s3-r1-ill">« Regarder = Comprendre »</span></td>
+            <td class="illusion-reality" data-i18n="s3-r1-real">Sans ancrage cognitif actif, la vidéo laisse peu de traces durables après 24h. La sensation de compréhension pendant le visionnage est souvent illusoire.</td>
+            <td data-i18n="s3-r1-act">Ajoutez systématiquement une activité après : quiz, questions ouvertes, carte mentale, discussion.</td>
           </tr>
           <tr>
-            <td><span class="illusion-label">« Plus c'est long, plus c'est complet »</span></td>
-            <td class="illusion-reality">L'étude du MIT (Guo et al., 2014) montre une chute d'engagement significative dès 6-9 minutes. Au-delà de 15 min, le visionnage devient largement passif.</td>
-            <td>Un objectif = une vidéo courte. Découpez les contenus longs en modules de 5-8 min maximum.</td>
+            <td><span class="illusion-label" data-i18n="s3-r2-ill">« Plus c'est long, plus c'est complet »</span></td>
+            <td class="illusion-reality" data-i18n="s3-r2-real">L'étude du MIT (Guo et al., 2014) montre une chute d'engagement significative dès 6-9 minutes. Au-delà de 15 min, le visionnage devient largement passif.</td>
+            <td data-i18n="s3-r2-act">Un objectif = une vidéo courte. Découpez les contenus longs en modules de 5-8 min maximum.</td>
           </tr>
           <tr>
-            <td><span class="illusion-label">« La vidéo motive automatiquement »</span></td>
-            <td class="illusion-reality">Elle capte l'attention au départ (effet nouveauté), mais cette motivation ne se maintient que si le contenu est perçu comme pertinent et le rythme bien calibré.</td>
-            <td>Commencez par une question-problème ou un exemple concret dès les 30 premières secondes.</td>
+            <td><span class="illusion-label" data-i18n="s3-r3-ill">« La vidéo motive automatiquement »</span></td>
+            <td class="illusion-reality" data-i18n="s3-r3-real">Elle capte l'attention au départ (effet nouveauté), mais cette motivation ne se maintient que si le contenu est perçu comme pertinent et le rythme bien calibré.</td>
+            <td data-i18n="s3-r3-act">Commencez par une question-problème ou un exemple concret dès les 30 premières secondes.</td>
           </tr>
           <tr>
-            <td><span class="illusion-label">« N'importe quelle vidéo fait l'affaire »</span></td>
-            <td class="illusion-reality">Une vidéo mal conçue (voix monotone, slides surchargés, absence de structure) peut nuire à l'apprentissage en créant une surcharge cognitive inutile.</td>
-            <td>Évaluez la vidéo avant de l'utiliser : clarté vocale, rythme, pertinence des visuels, structure narrative.</td>
+            <td><span class="illusion-label" data-i18n="s3-r4-ill">« N'importe quelle vidéo fait l'affaire »</span></td>
+            <td class="illusion-reality" data-i18n="s3-r4-real">Une vidéo mal conçue (voix monotone, slides surchargés, absence de structure) peut nuire à l'apprentissage en créant une surcharge cognitive inutile.</td>
+            <td data-i18n="s3-r4-act">Évaluez la vidéo avant de l'utiliser : clarté vocale, rythme, pertinence des visuels, structure narrative.</td>
           </tr>
           <tr>
-            <td><span class="illusion-label">« La vidéo remplace l'enseignant »</span></td>
-            <td class="illusion-reality">La vidéo transmet de l'information. Elle ne peut pas ajuster en temps réel, détecter la confusion d'un apprenant ou créer du lien. Ce sont des fonctions irremplaçables de l'humain.</td>
-            <td>Utilisez la vidéo pour ce qu'elle fait bien, et réservez le temps humain pour ce qu'elle ne peut pas faire.</td>
+            <td><span class="illusion-label" data-i18n="s3-r5-ill">« La vidéo remplace l'enseignant »</span></td>
+            <td class="illusion-reality" data-i18n="s3-r5-real">La vidéo transmet de l'information. Elle ne peut pas ajuster en temps réel, détecter la confusion d'un apprenant ou créer du lien. Ce sont des fonctions irremplaçables de l'humain.</td>
+            <td data-i18n="s3-r5-act">Utilisez la vidéo pour ce qu'elle fait bien, et réservez le temps humain pour ce qu'elle ne peut pas faire.</td>
           </tr>
         </tbody>
       </table>
@@ -811,11 +852,11 @@
 
   <!-- ============== SECTION 4 : DURÉE ============== -->
   <section class="section" id="sec-duree">
-    <h2 class="section-title">La Question de la Durée</h2>
-    <p class="section-intro">Testez l'impact de la durée sur l'engagement de vos apprenants.</p>
+    <h2 class="section-title" data-i18n="s4-title">La Question de la Durée</h2>
+    <p class="section-intro" data-i18n="s4-intro">Testez l'impact de la durée sur l'engagement de vos apprenants.</p>
 
     <div class="duration-demo">
-      <label>⏱ Durée de la vidéo — déplacez le curseur</label>
+      <label data-i18n="s4-slider-label">⏱ Durée de la vidéo — déplacez le curseur</label>
       <input type="range" class="duration-slider" id="durationSlider" min="1" max="30" value="5"
         oninput="updateDuration(this.value)"
         style="background: linear-gradient(90deg, var(--retro-teal) 16%, var(--retro-orange) 60%, var(--retro-jaune) 100%);">
@@ -825,23 +866,23 @@
     <div class="retro-sep"><span class="flourish">❁</span></div>
 
     <div class="theory-block">
-      <h3>📊 L'Étude MIT — Guo et al. (2014)</h3>
-      <p>Analyse de 6,9 millions d'interactions sur des MOOCs edX et Coursera. Les chercheurs ont mesuré le temps médian de visionnage selon la durée des vidéos. Résultats : l'engagement est maximum pour les vidéos de <strong style="color:var(--retro-jaune)">moins de 6 minutes</strong>. Au-delà de 9 minutes, le temps de visionnage effectif plafonne, quelle que soit la durée réelle de la vidéo.</p>
-      <p style="margin-top:10px">Autrement dit : une vidéo de 20 minutes ne sera pas plus regardée qu'une de 12 minutes.</p>
-      <span class="theory-ref">📚 Guo, P.J., Kim, J., Rubin, R. — MIT CSAIL, 2014</span>
+      <h3 data-i18n="s4-th1-h3">📊 L'Étude MIT — Guo et al. (2014)</h3>
+      <p data-i18n-html="s4-th1-p1">Analyse de 6,9 millions d'interactions sur des MOOCs edX et Coursera. Les chercheurs ont mesuré le temps médian de visionnage selon la durée des vidéos. Résultats : l'engagement est maximum pour les vidéos de <strong style="color:var(--retro-jaune)">moins de 6 minutes</strong>. Au-delà de 9 minutes, le temps de visionnage effectif plafonne, quelle que soit la durée réelle de la vidéo.</p>
+      <p style="margin-top:10px" data-i18n="s4-th1-p2">Autrement dit : une vidéo de 20 minutes ne sera pas plus regardée qu'une de 12 minutes.</p>
+      <span class="theory-ref" data-i18n="s4-th1-ref">📚 Guo, P.J., Kim, J., Rubin, R. — MIT CSAIL, 2014</span>
     </div>
 
     <div class="principe-card">
-      <h3><span class="num">→</span>La Règle du Découpage</h3>
-      <p>Si votre contenu nécessite plus de 8 minutes pour être exposé, découpez-le en <strong>modules indépendants</strong> avec un objectif unique chacun. Cela permet aussi une navigation non-linéaire : l'apprenant qui maîtrise déjà un point peut le sauter.</p>
-      <div class="example">💡 Format recommandé : 3-6 min par capsule, un seul concept ou compétence par capsule.</div>
+      <h3><span class="num">→</span><span data-i18n="s4-c1-title">La Règle du Découpage</span></h3>
+      <p data-i18n-html="s4-c1-p">Si votre contenu nécessite plus de 8 minutes pour être exposé, découpez-le en <strong>modules indépendants</strong> avec un objectif unique chacun. Cela permet aussi une navigation non-linéaire : l'apprenant qui maîtrise déjà un point peut le sauter.</p>
+      <div class="example" data-i18n="s4-c1-example">💡 Format recommandé : 3-6 min par capsule, un seul concept ou compétence par capsule.</div>
     </div>
   </section>
 
   <!-- ============== SECTION 5 : PRATIQUE ============== -->
   <section class="section" id="sec-pratique">
-    <h2 class="section-title">En Pratique — Checklist</h2>
-    <p class="section-intro">Cochez les critères que vous appliquez déjà. L'objectif n'est pas la perfection immédiate, mais la progression consciente.</p>
+    <h2 class="section-title" data-i18n="s5-title">En Pratique — Checklist</h2>
+    <p class="section-intro" data-i18n="s5-intro">Cochez les critères que vous appliquez déjà. L'objectif n'est pas la perfection immédiate, mais la progression consciente.</p>
 
     <div class="progress-label" id="progressLabel">Progression : 0 / 12 critères</div>
     <div class="progress-bar-wrap">
@@ -849,73 +890,73 @@
     </div>
 
     <div class="checklist-group">
-      <div class="checklist-title">✦ Avant de diffuser une vidéo</div>
+      <div class="checklist-title" data-i18n="s5-g1-title">✦ Avant de diffuser une vidéo</div>
 
       <div class="checklist-item" onclick="toggleCheck(this)">
         <div class="check-box">✓</div>
-        <div class="check-text"><strong>Objectif unique :</strong> cette vidéo répond à une seule question ou enseigne une seule compétence.</div>
+        <div class="check-text" data-i18n-html="s5-i1-1"><strong>Objectif unique :</strong> cette vidéo répond à une seule question ou enseigne une seule compétence.</div>
       </div>
       <div class="checklist-item" onclick="toggleCheck(this)">
         <div class="check-box">✓</div>
-        <div class="check-text"><strong>Durée adaptée :</strong> moins de 8 minutes, idéalement entre 3 et 6 min.</div>
+        <div class="check-text" data-i18n-html="s5-i1-2"><strong>Durée adaptée :</strong> moins de 8 minutes, idéalement entre 3 et 6 min.</div>
       </div>
       <div class="checklist-item" onclick="toggleCheck(this)">
         <div class="check-box">✓</div>
-        <div class="check-text"><strong>Pertinence vérifiée :</strong> j'ai visionné la vidéo entièrement et évalué sa qualité pédagogique.</div>
+        <div class="check-text" data-i18n-html="s5-i1-3"><strong>Pertinence vérifiée :</strong> j'ai visionné la vidéo entièrement et évalué sa qualité pédagogique.</div>
       </div>
       <div class="checklist-item" onclick="toggleCheck(this)">
         <div class="check-box">✓</div>
-        <div class="check-text"><strong>Mise en situation :</strong> j'ai posé une question ou problème AVANT le visionnage pour orienter l'attention.</div>
+        <div class="check-text" data-i18n-html="s5-i1-4"><strong>Mise en situation :</strong> j'ai posé une question ou problème AVANT le visionnage pour orienter l'attention.</div>
       </div>
     </div>
 
     <div class="checklist-group">
-      <div class="checklist-title">✦ Pendant ou après le visionnage</div>
+      <div class="checklist-title" data-i18n="s5-g2-title">✦ Pendant ou après le visionnage</div>
 
       <div class="checklist-item" onclick="toggleCheck(this)">
         <div class="check-box">✓</div>
-        <div class="check-text"><strong>Activité associée :</strong> une tâche cognitive suit le visionnage (quiz, synthèse, application).</div>
+        <div class="check-text" data-i18n-html="s5-i2-1"><strong>Activité associée :</strong> une tâche cognitive suit le visionnage (quiz, synthèse, application).</div>
       </div>
       <div class="checklist-item" onclick="toggleCheck(this)">
         <div class="check-box">✓</div>
-        <div class="check-text"><strong>Prise de notes encouragée :</strong> les apprenants sont invités à noter, questionner, schématiser.</div>
+        <div class="check-text" data-i18n-html="s5-i2-2"><strong>Prise de notes encouragée :</strong> les apprenants sont invités à noter, questionner, schématiser.</div>
       </div>
       <div class="checklist-item" onclick="toggleCheck(this)">
         <div class="check-box">✓</div>
-        <div class="check-text"><strong>Vérification de compréhension :</strong> je prévois un temps d'échange ou de retour sur les points obscurs.</div>
+        <div class="check-text" data-i18n-html="s5-i2-3"><strong>Vérification de compréhension :</strong> je prévois un temps d'échange ou de retour sur les points obscurs.</div>
       </div>
       <div class="checklist-item" onclick="toggleCheck(this)">
         <div class="check-box">✓</div>
-        <div class="check-text"><strong>Lien avec la séquence :</strong> la vidéo s'articule avec ce qui précède et ce qui suit dans ma planification.</div>
+        <div class="check-text" data-i18n-html="s5-i2-4"><strong>Lien avec la séquence :</strong> la vidéo s'articule avec ce qui précède et ce qui suit dans ma planification.</div>
       </div>
     </div>
 
     <div class="checklist-group">
-      <div class="checklist-title">✦ Si vous produisez vos propres vidéos</div>
+      <div class="checklist-title" data-i18n="s5-g3-title">✦ Si vous produisez vos propres vidéos</div>
 
       <div class="checklist-item" onclick="toggleCheck(this)">
         <div class="check-box">✓</div>
-        <div class="check-text"><strong>Audio soigné :</strong> la voix est claire, le débit modéré, l'environnement sonore calme.</div>
+        <div class="check-text" data-i18n-html="s5-i3-1"><strong>Audio soigné :</strong> la voix est claire, le débit modéré, l'environnement sonore calme.</div>
       </div>
       <div class="checklist-item" onclick="toggleCheck(this)">
         <div class="check-box">✓</div>
-        <div class="check-text"><strong>Visuels complémentaires :</strong> les images/schémas ajoutent du sens, ils ne dupliquent pas ce qui est dit.</div>
+        <div class="check-text" data-i18n-html="s5-i3-2"><strong>Visuels complémentaires :</strong> les images/schémas ajoutent du sens, ils ne dupliquent pas ce qui est dit.</div>
       </div>
       <div class="checklist-item" onclick="toggleCheck(this)">
         <div class="check-box">✓</div>
-        <div class="check-text"><strong>Accroche forte :</strong> les 30 premières secondes posent clairement le problème ou l'enjeu.</div>
+        <div class="check-text" data-i18n-html="s5-i3-3"><strong>Accroche forte :</strong> les 30 premières secondes posent clairement le problème ou l'enjeu.</div>
       </div>
       <div class="checklist-item" onclick="toggleCheck(this)">
         <div class="check-box">✓</div>
-        <div class="check-text"><strong>Accessibilité :</strong> sous-titres disponibles ou prévisibles pour les apprenants qui en ont besoin.</div>
+        <div class="check-text" data-i18n-html="s5-i3-4"><strong>Accessibilité :</strong> sous-titres disponibles ou prévisibles pour les apprenants qui en ont besoin.</div>
       </div>
     </div>
 
     <div class="retro-sep"><span class="flourish">⚘</span></div>
 
     <div class="theory-block">
-      <h3>📖 Pour aller plus loin</h3>
-      <p><strong style="color:var(--retro-jaune)">Mayer, R.E.</strong> — Multimedia Learning (2001, 2e éd. 2009) · Cambridge University Press<br><br>
+      <h3 data-i18n="s5-further-h3">📖 Pour aller plus loin</h3>
+      <p data-i18n-html="s5-further-p"><strong style="color:var(--retro-jaune)">Mayer, R.E.</strong> — Multimedia Learning (2001, 2e éd. 2009) · Cambridge University Press<br><br>
       <strong style="color:var(--retro-jaune)">Sweller, J.</strong> — Cognitive Load During Problem Solving (1988) · Cognitive Science<br><br>
       <strong style="color:var(--retro-jaune)">Bergmann &amp; Sams</strong> — Flip Your Classroom (2012) · ISTE<br><br>
       <strong style="color:var(--retro-jaune)">Guo, Kim &amp; Rubin</strong> — How Video Production Affects Student Engagement (2014) · MIT CSAIL<br><br>
@@ -925,14 +966,267 @@
 
   <!-- === FOOTER === -->
   <footer class="site-footer">
-    <span class="footer-text">◈ Ressource ouverte pour enseignants</span>
+    <span class="footer-text" data-i18n="footer-text">◈ Ressource ouverte pour enseignants</span>
     <span class="footer-refs">Mayer 2001 · Sweller 1988 · Bergmann &amp; Sams 2012 · Guo et al. 2014 · Immordino-Yang 2015</span>
   </footer>
 
 </div>
 
 <script>
-  // === NAVIGATION ===
+  // ============================================================
+  // TRANSLATIONS
+  // ============================================================
+  const T = {
+    fr: {
+      'pageTitle': 'LA VIDÉO PÉDAGOGIQUE — Guide pour Enseignants',
+      'hero-eyebrow': '✦ Formation &amp; Pédagogie Numérique',
+      'hero-h1': 'La <span>Vidéo</span><br>Pédagogique',
+      'hero-sub': 'Ce que vous devez vraiment savoir avant de filmer, diffuser, ou regarder une vidéo avec vos apprenants.',
+      'hero-badge': '⚙ Guide pour Enseignants',
+      'nav-principe': '◈ Le Principe',
+      'nav-utilites': '◈ Les Utilités',
+      'nav-illusions': '◈ Les Illusions',
+      'nav-duree': '◈ La Durée',
+      'nav-pratique': '◈ En Pratique',
+      // Section 1
+      's1-title': 'Le Principe Fondamental',
+      's1-intro': "La vidéo pédagogique n'est pas un cours filmé. Son efficacité repose sur une mécanique cognitive précise que tout enseignant doit comprendre.",
+      's1-th1-h3': '🧠 La Théorie de Mayer (2001)',
+      's1-th1-p1': 'Richard Mayer a démontré que le cerveau dispose de <strong style="color:var(--retro-jaune)">deux canaux d\'entrée distincts</strong> : un canal auditif et un canal visuel. Lorsque la vidéo utilise les deux simultanément et de façon cohérente, la compréhension et la rétention s\'améliorent significativement — c\'est le principe de <em>modalité</em>.',
+      's1-th1-p2': 'À condition essentielle : que les deux canaux se <strong style="color:var(--retro-jaune)">complètent</strong> sans se surcharger mutuellement. Une voix qui lit le texte affiché à l\'écran est contre-productive (effet redondance).',
+      's1-th1-ref': '📚 Mayer, R.E. — Multimedia Learning, 2001',
+      's1-c1-title': 'Deux canaux, pas un',
+      's1-c1-p': "Le canal visuel traite les images, schémas, mouvements. Le canal auditif traite les mots parlés. Une bonne vidéo distribue l'information sur ces deux voies — et ne duplique pas la même information dans les deux.",
+      's1-c1-example': '💡 Contre-exemple : lire à voix haute un texte affiché à l\'écran surcharge sans rien ajouter.',
+      's1-c2-title': 'La charge cognitive (Sweller, 1988)',
+      's1-c2-p': 'John Sweller a établi que la mémoire de travail est limitée. Une vidéo bien conçue réduit la <strong>charge extrinsèque</strong> (liée au format) pour libérer de la capacité pour la <strong>charge germane</strong> (construction du sens). Trop d\'informations simultanées à l\'écran produit l\'effet inverse.',
+      's1-c2-ref': '📚 Sweller, 1988 · Théorie de la Charge Cognitive',
+      's1-c3-title': "Ce que la vidéo n'est pas",
+      's1-c3-p': "La vidéo ne remplace pas l'enseignant. Elle ne crée pas automatiquement de l'apprentissage. Elle est un <strong>vecteur d'exposition au contenu</strong> — et un vecteur efficace uniquement si elle est intégrée dans une séquence avec un avant (mise en situation) et un après (activité, discussion, ancrage).",
+      's1-c3-example': '⚠ Regarder une vidéo sans activité cognitive associée = mémorisation proche de zéro après 24h.',
+      // Section 2
+      's2-title': 'Les 6 Utilités Clés',
+      's2-intro': 'Cliquez sur chaque carte pour développer l\'explication détaillée et les conseils pratiques.',
+      's2-u1-h3': 'Flexibilité du Rythme',
+      's2-u1-p': 'L\'apprenant peut mettre en pause, revenir en arrière, revoir. Impossible dans un exposé magistral.',
+      's2-u1-detail': '<strong>Pourquoi c\'est décisif :</strong> Pour les publics hétérogènes, les apprenants allophones, ou ceux qui traitent l\'information plus lentement, cette flexibilité change tout. Elle réduit l\'anxiété liée au rythme imposé par l\'enseignant.<br><br><strong>En pratique :</strong> Encouragez vos apprenants à visionner avec un crayon — noter, pauser, noter encore. C\'est ce geste qui transforme le visionnage passif en apprentissage actif.',
+      's2-u2-h3': 'Visualisation du Mouvement',
+      's2-u2-p': 'Certains contenus sont intrinsèquement dynamiques : gestes professionnels, procédures, évolutions temporelles.',
+      's2-u2-detail': '<strong>Ce qu\'aucun texte ne peut faire :</strong> Montrer comment tenir un outil, réaliser une soudure, pratiquer un massage. La vidéo permet la démonstration de séquences que les images fixes et le texte ne peuvent qu\'approximer.<br><br><strong>Pertinence particulière</strong> dans les formations professionnelles (métiers manuels, soins, techniques).',
+      's2-u3-h3': 'Classe Inversée',
+      's2-u3-p': 'Le contenu informatif est visionné en dehors de la classe. Le temps en présentiel est libéré pour la pratique.',
+      's2-u3-detail': '<strong>Le principe de Bergmann &amp; Sams (2012) :</strong> Si les apprenants ont été exposés au contenu avant la séance, l\'enseignant peut consacrer 100% du temps de face-à-face à l\'exercice, la remédiation et l\'interaction.<br><br><strong>Attention :</strong> La classe inversée ne fonctionne que si les apprenants ont réellement visionné la vidéo. Prévoyez un court dispositif de vérification (quiz rapide, question d\'entrée).',
+      's2-u4-h3': 'Émotion &amp; Mémorisation',
+      's2-u4-p': 'Une narration incarnée active la mémoire épisodique davantage qu\'un texte académique.',
+      's2-u4-detail': '<strong>Immordino-Yang (2015) :</strong> Les travaux sur émotion et cognition montrent que l\'affect joue un rôle actif dans la consolidation des apprentissages. On retient mieux ce qu\'on a vécu comme une histoire.<br><br><strong>Implication pratique :</strong> Une vidéo avec un récit, un exemple concret, une voix vivante sera bien plus mémorisée qu\'un texte narré sur fond de slides.',
+      's2-u5-h3': 'Interactivité Possible',
+      's2-u5-p': 'Intégrée dans H5P ou d\'autres outils, la vidéo peut devenir un parcours actif avec questions intercalées.',
+      's2-u5-detail': '<strong>H5P Interactive Video :</strong> Permet d\'insérer des questions à choix multiple, des points d\'arrêt avec texte, des branchements. La vidéo cesse d\'être un support passif.<br><br><strong>Lien avec Bloom :</strong> Selon le niveau taxonomique visé (mémoriser, comprendre, appliquer, analyser), on n\'utilise pas la vidéo de la même façon — ni les mêmes types d\'interactions.',
+      's2-u6-h3': 'Accessibilité &amp; Différenciation',
+      's2-u6-p': 'Sous-titres, ralenti, répétitions illimitées : la vidéo peut s\'adapter aux besoins spécifiques.',
+      's2-u6-detail': '<strong>Pour les apprenants allophones :</strong> La combinaison image + parole + possibilité de sous-titres en langue d\'origine est un levier d\'inclusion puissant.<br><br><strong>Pour les DYS :</strong> Le canal auditif peut compenser les difficultés de lecture, à condition que la vidéo soit bien conçue vocalement (débit, clarté, articulation).',
+      'hint-expand': '▼ Développer',
+      'hint-collapse': '▲ Réduire',
+      // Section 3
+      's3-title': 'Les Illusions à Déjouer',
+      's3-intro': 'Ce que les enseignants croient souvent à propos de la vidéo — et ce que la recherche en dit réellement.',
+      's3-th1-h3': '⚠ L\'Illusion de Fluidité Cognitive',
+      's3-th1-p': 'Regarder une vidéo bien faite donne une <strong style="color:var(--retro-jaune)">sensation de compréhension</strong> qui peut être trompeuse. Cette fluidité perceptive (le contenu "coule" facilement) masque l\'absence de véritable traitement en profondeur. On confond facilité de décodage et apprentissage réel.',
+      's3-th1-ref': '📚 Reber &amp; Schwarz · Processing Fluency Research',
+      's3-th-col1': '❌ L\'Illusion',
+      's3-th-col2': '✔ La Réalité',
+      's3-th-col3': '→ Ce que vous pouvez faire',
+      's3-r1-ill': '« Regarder = Comprendre »',
+      's3-r1-real': 'Sans ancrage cognitif actif, la vidéo laisse peu de traces durables après 24h. La sensation de compréhension pendant le visionnage est souvent illusoire.',
+      's3-r1-act': 'Ajoutez systématiquement une activité après : quiz, questions ouvertes, carte mentale, discussion.',
+      's3-r2-ill': '« Plus c\'est long, plus c\'est complet »',
+      's3-r2-real': 'L\'étude du MIT (Guo et al., 2014) montre une chute d\'engagement significative dès 6-9 minutes. Au-delà de 15 min, le visionnage devient largement passif.',
+      's3-r2-act': 'Un objectif = une vidéo courte. Découpez les contenus longs en modules de 5-8 min maximum.',
+      's3-r3-ill': '« La vidéo motive automatiquement »',
+      's3-r3-real': 'Elle capte l\'attention au départ (effet nouveauté), mais cette motivation ne se maintient que si le contenu est perçu comme pertinent et le rythme bien calibré.',
+      's3-r3-act': 'Commencez par une question-problème ou un exemple concret dès les 30 premières secondes.',
+      's3-r4-ill': '« N\'importe quelle vidéo fait l\'affaire »',
+      's3-r4-real': 'Une vidéo mal conçue (voix monotone, slides surchargés, absence de structure) peut nuire à l\'apprentissage en créant une surcharge cognitive inutile.',
+      's3-r4-act': 'Évaluez la vidéo avant de l\'utiliser : clarté vocale, rythme, pertinence des visuels, structure narrative.',
+      's3-r5-ill': '« La vidéo remplace l\'enseignant »',
+      's3-r5-real': 'La vidéo transmet de l\'information. Elle ne peut pas ajuster en temps réel, détecter la confusion d\'un apprenant ou créer du lien. Ce sont des fonctions irremplaçables de l\'humain.',
+      's3-r5-act': 'Utilisez la vidéo pour ce qu\'elle fait bien, et réservez le temps humain pour ce qu\'elle ne peut pas faire.',
+      // Section 4
+      's4-title': 'La Question de la Durée',
+      's4-intro': "Testez l'impact de la durée sur l'engagement de vos apprenants.",
+      's4-slider-label': '⏱ Durée de la vidéo — déplacez le curseur',
+      's4-th1-h3': '📊 L\'Étude MIT — Guo et al. (2014)',
+      's4-th1-p1': 'Analyse de 6,9 millions d\'interactions sur des MOOCs edX et Coursera. Les chercheurs ont mesuré le temps médian de visionnage selon la durée des vidéos. Résultats : l\'engagement est maximum pour les vidéos de <strong style="color:var(--retro-jaune)">moins de 6 minutes</strong>. Au-delà de 9 minutes, le temps de visionnage effectif plafonne, quelle que soit la durée réelle de la vidéo.',
+      's4-th1-p2': 'Autrement dit : une vidéo de 20 minutes ne sera pas plus regardée qu\'une de 12 minutes.',
+      's4-th1-ref': '📚 Guo, P.J., Kim, J., Rubin, R. — MIT CSAIL, 2014',
+      's4-c1-title': 'La Règle du Découpage',
+      's4-c1-p': 'Si votre contenu nécessite plus de 8 minutes pour être exposé, découpez-le en <strong>modules indépendants</strong> avec un objectif unique chacun. Cela permet aussi une navigation non-linéaire : l\'apprenant qui maîtrise déjà un point peut le sauter.',
+      's4-c1-example': '💡 Format recommandé : 3-6 min par capsule, un seul concept ou compétence par capsule.',
+      // Section 5
+      's5-title': 'En Pratique — Checklist',
+      's5-intro': "Cochez les critères que vous appliquez déjà. L'objectif n'est pas la perfection immédiate, mais la progression consciente.",
+      's5-g1-title': '✦ Avant de diffuser une vidéo',
+      's5-i1-1': '<strong>Objectif unique :</strong> cette vidéo répond à une seule question ou enseigne une seule compétence.',
+      's5-i1-2': '<strong>Durée adaptée :</strong> moins de 8 minutes, idéalement entre 3 et 6 min.',
+      's5-i1-3': '<strong>Pertinence vérifiée :</strong> j\'ai visionné la vidéo entièrement et évalué sa qualité pédagogique.',
+      's5-i1-4': '<strong>Mise en situation :</strong> j\'ai posé une question ou problème AVANT le visionnage pour orienter l\'attention.',
+      's5-g2-title': '✦ Pendant ou après le visionnage',
+      's5-i2-1': '<strong>Activité associée :</strong> une tâche cognitive suit le visionnage (quiz, synthèse, application).',
+      's5-i2-2': '<strong>Prise de notes encouragée :</strong> les apprenants sont invités à noter, questionner, schématiser.',
+      's5-i2-3': '<strong>Vérification de compréhension :</strong> je prévois un temps d\'échange ou de retour sur les points obscurs.',
+      's5-i2-4': '<strong>Lien avec la séquence :</strong> la vidéo s\'articule avec ce qui précède et ce qui suit dans ma planification.',
+      's5-g3-title': '✦ Si vous produisez vos propres vidéos',
+      's5-i3-1': '<strong>Audio soigné :</strong> la voix est claire, le débit modéré, l\'environnement sonore calme.',
+      's5-i3-2': '<strong>Visuels complémentaires :</strong> les images/schémas ajoutent du sens, ils ne dupliquent pas ce qui est dit.',
+      's5-i3-3': '<strong>Accroche forte :</strong> les 30 premières secondes posent clairement le problème ou l\'enjeu.',
+      's5-i3-4': '<strong>Accessibilité :</strong> sous-titres disponibles ou prévisibles pour les apprenants qui en ont besoin.',
+      's5-further-h3': '📖 Pour aller plus loin',
+      's5-further-p': '<strong style="color:var(--retro-jaune)">Mayer, R.E.</strong> — Multimedia Learning (2001, 2e éd. 2009) · Cambridge University Press<br><br><strong style="color:var(--retro-jaune)">Sweller, J.</strong> — Cognitive Load During Problem Solving (1988) · Cognitive Science<br><br><strong style="color:var(--retro-jaune)">Bergmann &amp; Sams</strong> — Flip Your Classroom (2012) · ISTE<br><br><strong style="color:var(--retro-jaune)">Guo, Kim &amp; Rubin</strong> — How Video Production Affects Student Engagement (2014) · MIT CSAIL<br><br><strong style="color:var(--retro-jaune)">Immordino-Yang, M.H.</strong> — Emotions, Learning, and the Brain (2015) · Norton',
+      'footer-text': '◈ Ressource ouverte pour enseignants',
+      'progress-label': (c, t, p) => `Progression : ${c} / ${t} critères (${p}%)`,
+    },
+    en: {
+      'pageTitle': 'THE PEDAGOGICAL VIDEO — Teacher\'s Guide',
+      'hero-eyebrow': '✦ Education &amp; Digital Pedagogy',
+      'hero-h1': 'The <span>Pedagogical</span><br>Video',
+      'hero-sub': 'What you really need to know before filming, sharing, or watching a video with your learners.',
+      'hero-badge': '⚙ Teacher\'s Guide',
+      'nav-principe': '◈ The Principle',
+      'nav-utilites': '◈ The Benefits',
+      'nav-illusions': '◈ The Illusions',
+      'nav-duree': '◈ Duration',
+      'nav-pratique': '◈ In Practice',
+      // Section 1
+      's1-title': 'The Fundamental Principle',
+      's1-intro': 'A pedagogical video is not a filmed lecture. Its effectiveness relies on a precise cognitive mechanism that every teacher must understand.',
+      's1-th1-h3': '🧠 Mayer\'s Theory (2001)',
+      's1-th1-p1': 'Richard Mayer demonstrated that the brain has <strong style="color:var(--retro-jaune)">two distinct input channels</strong>: an auditory channel and a visual channel. When video uses both simultaneously and coherently, comprehension and retention improve significantly — this is the <em>modality</em> principle.',
+      's1-th1-p2': 'With one essential condition: that both channels <strong style="color:var(--retro-jaune)">complement</strong> each other without mutual overload. A voice reading the text displayed on screen is counterproductive (redundancy effect).',
+      's1-th1-ref': '📚 Mayer, R.E. — Multimedia Learning, 2001',
+      's1-c1-title': 'Two channels, not one',
+      's1-c1-p': 'The visual channel processes images, diagrams, movements. The auditory channel processes spoken words. A good video distributes information across both pathways — and does not duplicate the same information in both.',
+      's1-c1-example': '💡 Counter-example: reading aloud text displayed on screen overloads without adding anything.',
+      's1-c2-title': 'Cognitive Load Theory (Sweller, 1988)',
+      's1-c2-p': 'John Sweller established that working memory is limited. A well-designed video reduces <strong>extrinsic load</strong> (related to format) to free up capacity for <strong>germane load</strong> (meaning construction). Too much information on screen simultaneously produces the opposite effect.',
+      's1-c2-ref': '📚 Sweller, 1988 · Cognitive Load Theory',
+      's1-c3-title': 'What video is not',
+      's1-c3-p': 'Video does not replace the teacher. It does not automatically create learning. It is a <strong>content exposure vector</strong> — and an effective one only when integrated into a sequence with a before (context-setting) and an after (activity, discussion, consolidation).',
+      's1-c3-example': '⚠ Watching a video without associated cognitive activity = near-zero retention after 24h.',
+      // Section 2
+      's2-title': 'The 6 Key Benefits',
+      's2-intro': 'Click on each card to expand the detailed explanation and practical tips.',
+      's2-u1-h3': 'Pace Flexibility',
+      's2-u1-p': 'Learners can pause, rewind, rewatch. Impossible in a lecture.',
+      's2-u1-detail': '<strong>Why it matters:</strong> For heterogeneous groups, allophone learners, or those who process information more slowly, this flexibility changes everything. It reduces the anxiety of keeping up with the teacher\'s pace.<br><br><strong>In practice:</strong> Encourage your learners to watch with a pencil — take notes, pause, take more notes. It\'s this gesture that transforms passive viewing into active learning.',
+      's2-u2-h3': 'Movement Visualization',
+      's2-u2-p': 'Some content is inherently dynamic: professional gestures, procedures, temporal evolutions.',
+      's2-u2-detail': '<strong>What no text can do:</strong> Show how to hold a tool, perform a weld, practice a massage. Video enables the demonstration of sequences that still images and text can only approximate.<br><br><strong>Particularly relevant</strong> in vocational training (manual trades, healthcare, technical skills).',
+      's2-u3-h3': 'Flipped Classroom',
+      's2-u3-p': 'Informational content is viewed outside of class. Face-to-face time is freed up for practice.',
+      's2-u3-detail': '<strong>Bergmann &amp; Sams\' principle (2012):</strong> If learners have been exposed to the content before the session, the teacher can devote 100% of face-to-face time to practice, remediation and interaction.<br><br><strong>Note:</strong> The flipped classroom only works if learners have actually watched the video. Plan a short verification mechanism (quick quiz, entry question).',
+      's2-u4-h3': 'Emotion &amp; Memorization',
+      's2-u4-p': 'An embodied narration activates episodic memory more than an academic text.',
+      's2-u4-detail': '<strong>Immordino-Yang (2015):</strong> Research on emotion and cognition shows that affect plays an active role in learning consolidation. We better retain what we experienced as a story.<br><br><strong>Practical implication:</strong> A video with a narrative, a concrete example, a lively voice will be far better remembered than text narrated over slides.',
+      's2-u5-h3': 'Interactive Potential',
+      's2-u5-p': 'Integrated into H5P or other tools, video can become an active pathway with embedded questions.',
+      's2-u5-detail': '<strong>H5P Interactive Video:</strong> Allows inserting multiple choice questions, text pause points, branching scenarios. Video ceases to be a passive medium.<br><br><strong>Link to Bloom\'s Taxonomy:</strong> Depending on the taxonomic level targeted (remember, understand, apply, analyze), video is not used the same way — nor are the same types of interactions.',
+      's2-u6-h3': 'Accessibility &amp; Differentiation',
+      's2-u6-p': 'Subtitles, slow motion, unlimited replays: video can adapt to specific needs.',
+      's2-u6-detail': '<strong>For allophone learners:</strong> The combination of image + speech + possibility of subtitles in the native language is a powerful inclusion tool.<br><br><strong>For learners with dyslexia:</strong> The auditory channel can compensate for reading difficulties, provided the video is well designed vocally (pace, clarity, articulation).',
+      'hint-expand': '▼ Expand',
+      'hint-collapse': '▲ Collapse',
+      // Section 3
+      's3-title': 'Illusions to Overcome',
+      's3-intro': 'What teachers often believe about video — and what research actually says.',
+      's3-th1-h3': '⚠ The Cognitive Fluency Illusion',
+      's3-th1-p': 'Watching a well-made video creates a <strong style="color:var(--retro-jaune)">sense of understanding</strong> that can be misleading. This perceptual fluency (content "flows" easily) masks the absence of genuine deep processing. We confuse ease of decoding with real learning.',
+      's3-th1-ref': '📚 Reber &amp; Schwarz · Processing Fluency Research',
+      's3-th-col1': '❌ The Illusion',
+      's3-th-col2': '✔ The Reality',
+      's3-th-col3': '→ What you can do',
+      's3-r1-ill': '« Watching = Understanding »',
+      's3-r1-real': 'Without active cognitive anchoring, video leaves few lasting traces after 24h. The sense of understanding during viewing is often illusory.',
+      's3-r1-act': 'Systematically add an activity afterwards: quiz, open questions, mind map, discussion.',
+      's3-r2-ill': '« Longer means more complete »',
+      's3-r2-real': 'The MIT study (Guo et al., 2014) shows a significant drop in engagement from 6-9 minutes. Beyond 15 min, viewing becomes largely passive.',
+      's3-r2-act': 'One objective = one short video. Break long content into 5-8 min maximum modules.',
+      's3-r3-ill': '« Video automatically motivates »',
+      's3-r3-real': 'It captures attention at first (novelty effect), but this motivation only lasts if the content is perceived as relevant and the pace well calibrated.',
+      's3-r3-act': 'Start with a problem-question or concrete example in the first 30 seconds.',
+      's3-r4-ill': '« Any video will do »',
+      's3-r4-real': 'A poorly designed video (monotone voice, overloaded slides, lack of structure) can harm learning by creating unnecessary cognitive overload.',
+      's3-r4-act': 'Evaluate the video before using it: vocal clarity, pace, relevance of visuals, narrative structure.',
+      's3-r5-ill': '« Video replaces the teacher »',
+      's3-r5-real': 'Video transmits information. It cannot adjust in real-time, detect a learner\'s confusion, or create connection. These are irreplaceable human functions.',
+      's3-r5-act': 'Use video for what it does well, and reserve human time for what it cannot do.',
+      // Section 4
+      's4-title': 'The Question of Duration',
+      's4-intro': "Test the impact of duration on your learners' engagement.",
+      's4-slider-label': '⏱ Video duration — move the slider',
+      's4-th1-h3': '📊 The MIT Study — Guo et al. (2014)',
+      's4-th1-p1': 'Analysis of 6.9 million interactions on edX and Coursera MOOCs. Researchers measured median viewing time based on video duration. Results: engagement is maximum for videos <strong style="color:var(--retro-jaune)">under 6 minutes</strong>. Beyond 9 minutes, actual viewing time plateaus regardless of the video\'s actual length.',
+      's4-th1-p2': "In other words: a 20-minute video won't be watched more than a 12-minute one.",
+      's4-th1-ref': '📚 Guo, P.J., Kim, J., Rubin, R. — MIT CSAIL, 2014',
+      's4-c1-title': 'The Chunking Rule',
+      's4-c1-p': 'If your content requires more than 8 minutes to cover, break it into <strong>independent modules</strong> with a unique objective each. This also allows non-linear navigation: a learner who already masters a point can skip it.',
+      's4-c1-example': '💡 Recommended format: 3-6 min per capsule, one concept or skill per capsule.',
+      // Section 5
+      's5-title': 'In Practice — Checklist',
+      's5-intro': 'Check the criteria you already apply. The goal is not immediate perfection, but conscious progress.',
+      's5-g1-title': '✦ Before sharing a video',
+      's5-i1-1': '<strong>Single objective:</strong> this video answers one question or teaches one skill.',
+      's5-i1-2': '<strong>Adapted duration:</strong> less than 8 minutes, ideally between 3 and 6 min.',
+      's5-i1-3': '<strong>Verified relevance:</strong> I watched the video in full and evaluated its pedagogical quality.',
+      's5-i1-4': '<strong>Context-setting:</strong> I posed a question or problem BEFORE viewing to guide attention.',
+      's5-g2-title': '✦ During or after viewing',
+      's5-i2-1': '<strong>Associated activity:</strong> a cognitive task follows viewing (quiz, summary, application).',
+      's5-i2-2': '<strong>Note-taking encouraged:</strong> learners are invited to note, question, diagram.',
+      's5-i2-3': '<strong>Comprehension check:</strong> I plan an exchange or review of unclear points.',
+      's5-i2-4': '<strong>Link to sequence:</strong> the video connects with what precedes and follows in my planning.',
+      's5-g3-title': '✦ If you produce your own videos',
+      's5-i3-1': '<strong>Clean audio:</strong> the voice is clear, the pace moderate, the sound environment quiet.',
+      's5-i3-2': '<strong>Complementary visuals:</strong> images/diagrams add meaning, they don\'t duplicate what is said.',
+      's5-i3-3': '<strong>Strong hook:</strong> the first 30 seconds clearly establish the problem or challenge.',
+      's5-i3-4': '<strong>Accessibility:</strong> subtitles available or planned for learners who need them.',
+      's5-further-h3': '📖 Further Reading',
+      's5-further-p': '<strong style="color:var(--retro-jaune)">Mayer, R.E.</strong> — Multimedia Learning (2001, 2nd ed. 2009) · Cambridge University Press<br><br><strong style="color:var(--retro-jaune)">Sweller, J.</strong> — Cognitive Load During Problem Solving (1988) · Cognitive Science<br><br><strong style="color:var(--retro-jaune)">Bergmann &amp; Sams</strong> — Flip Your Classroom (2012) · ISTE<br><br><strong style="color:var(--retro-jaune)">Guo, Kim &amp; Rubin</strong> — How Video Production Affects Student Engagement (2014) · MIT CSAIL<br><br><strong style="color:var(--retro-jaune)">Immordino-Yang, M.H.</strong> — Emotions, Learning, and the Brain (2015) · Norton',
+      'footer-text': '◈ Open resource for teachers',
+      'progress-label': (c, t, p) => `Progress: ${c} / ${t} criteria (${p}%)`,
+    }
+  };
+
+  // ============================================================
+  // CURRENT LANGUAGE
+  // ============================================================
+  let currentLang = 'fr';
+
+  function setLang(lang) {
+    currentLang = lang;
+    document.getElementById('htmlRoot').lang = lang;
+    document.getElementById('pageTitle').textContent = T[lang]['pageTitle'];
+    document.getElementById('btnFR').classList.toggle('active', lang === 'fr');
+    document.getElementById('btnEN').classList.toggle('active', lang === 'en');
+
+    // Apply textContent translations
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const key = el.getAttribute('data-i18n');
+      if (T[lang][key] !== undefined) el.textContent = T[lang][key];
+    });
+
+    // Apply innerHTML translations
+    document.querySelectorAll('[data-i18n-html]').forEach(el => {
+      const key = el.getAttribute('data-i18n-html');
+      if (T[lang][key] !== undefined) el.innerHTML = T[lang][key];
+    });
+
+    // Update dynamic elements
+    updateDuration(document.getElementById('durationSlider').value);
+    updateProgress();
+  }
+
+  // ============================================================
+  // NAVIGATION
+  // ============================================================
   function showSection(id, btn) {
     document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
     document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
@@ -941,48 +1235,75 @@
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
-  // === UTILITES TOGGLE ===
+  // ============================================================
+  // UTILITES TOGGLE
+  // ============================================================
   function toggleUtilite(card) {
     const isOpen = card.classList.contains('open');
     document.querySelectorAll('.utilite-card').forEach(c => {
       c.classList.remove('open');
       const hint = c.querySelector('.toggle-hint');
-      if (hint) hint.textContent = '▼ Développer';
+      if (hint) hint.textContent = T[currentLang]['hint-expand'];
     });
     if (!isOpen) {
       card.classList.add('open');
       const hint = card.querySelector('.toggle-hint');
-      if (hint) hint.textContent = '▲ Réduire';
+      if (hint) hint.textContent = T[currentLang]['hint-collapse'];
     }
   }
 
-  // === DURATION SLIDER ===
+  // ============================================================
+  // DURATION SLIDER
+  // ============================================================
   function updateDuration(val) {
     val = parseInt(val);
     const fb = document.getElementById('durationFeedback');
     let msg, style;
-    if (val <= 3) {
-      msg = `✅ ${val} minute${val>1?'s':''} — Optimal. Engagement maximal, contenu ciblé. Format idéal pour une capsule de microlearning.`;
-      style = 'background:rgba(18,118,118,0.12);border-left:4px solid #127676;color:#0D1617;';
-    } else if (val <= 6) {
-      msg = `✅ ${val} minutes — Très bon. Dans la zone de confort attentionnel. L'apprenant reste engagé si le rythme est bien tenu.`;
-      style = 'background:rgba(18,118,118,0.12);border-left:4px solid #127676;color:#0D1617;';
-    } else if (val <= 9) {
-      msg = `⚠️ ${val} minutes — Limite. Selon Guo et al. (MIT, 2014), l'engagement commence à chuter à partir de 6-9 min. Assurez-vous d'un rythme soutenu et d'une accroche forte.`;
-      style = 'background:rgba(227,165,53,0.15);border-left:4px solid #E3A535;color:#0D1617;';
-    } else if (val <= 15) {
-      msg = `⚠️ ${val} minutes — Risqué. Une proportion significative d'apprenants décrochera avant la fin. Envisagez de découper en 2 capsules avec un objectif distinct chacune.`;
-      style = 'background:rgba(227,165,53,0.15);border-left:4px solid #E3A535;color:#0D1617;';
+    const lang = currentLang;
+
+    if (lang === 'fr') {
+      if (val <= 3) {
+        msg = `✅ ${val} minute${val>1?'s':''} — Optimal. Engagement maximal, contenu ciblé. Format idéal pour une capsule de microlearning.`;
+        style = 'background:rgba(18,118,118,0.12);border-left:4px solid #127676;color:#0D1617;';
+      } else if (val <= 6) {
+        msg = `✅ ${val} minutes — Très bon. Dans la zone de confort attentionnel. L'apprenant reste engagé si le rythme est bien tenu.`;
+        style = 'background:rgba(18,118,118,0.12);border-left:4px solid #127676;color:#0D1617;';
+      } else if (val <= 9) {
+        msg = `⚠️ ${val} minutes — Limite. Selon Guo et al. (MIT, 2014), l'engagement commence à chuter à partir de 6-9 min. Assurez-vous d'un rythme soutenu et d'une accroche forte.`;
+        style = 'background:rgba(227,165,53,0.15);border-left:4px solid #E3A535;color:#0D1617;';
+      } else if (val <= 15) {
+        msg = `⚠️ ${val} minutes — Risqué. Une proportion significative d'apprenants décrochera avant la fin. Envisagez de découper en 2 capsules avec un objectif distinct chacune.`;
+        style = 'background:rgba(227,165,53,0.15);border-left:4px solid #E3A535;color:#0D1617;';
+      } else {
+        msg = `❌ ${val} minutes — Problématique. Au-delà de 15 min, le visionnage effectif plafonne indépendamment de la durée réelle. Une vidéo de ${val} min ne sera pas mieux regardée qu'une de 12 min. Découpez impérativement.`;
+        style = 'background:rgba(228,99,46,0.12);border-left:4px solid #E4632E;color:#0D1617;';
+      }
     } else {
-      msg = `❌ ${val} minutes — Problématique. Au-delà de 15 min, le visionnage effectif plafonne indépendamment de la durée réelle. Une vidéo de ${val} min ne sera pas mieux regardée qu'une de 12 min. Découpez impérativement.`;
-      style = 'background:rgba(228,99,46,0.12);border-left:4px solid #E4632E;color:#0D1617;';
+      if (val <= 3) {
+        msg = `✅ ${val} minute${val>1?'s':''} — Optimal. Maximum engagement, targeted content. Ideal format for a microlearning capsule.`;
+        style = 'background:rgba(18,118,118,0.12);border-left:4px solid #127676;color:#0D1617;';
+      } else if (val <= 6) {
+        msg = `✅ ${val} minutes — Very good. In the attention comfort zone. The learner stays engaged if the pace is well maintained.`;
+        style = 'background:rgba(18,118,118,0.12);border-left:4px solid #127676;color:#0D1617;';
+      } else if (val <= 9) {
+        msg = `⚠️ ${val} minutes — Borderline. According to Guo et al. (MIT, 2014), engagement begins to drop from 6-9 min. Ensure a sustained pace and a strong hook.`;
+        style = 'background:rgba(227,165,53,0.15);border-left:4px solid #E3A535;color:#0D1617;';
+      } else if (val <= 15) {
+        msg = `⚠️ ${val} minutes — Risky. A significant proportion of learners will drop off before the end. Consider breaking into 2 capsules with a distinct objective each.`;
+        style = 'background:rgba(227,165,53,0.15);border-left:4px solid #E3A535;color:#0D1617;';
+      } else {
+        msg = `❌ ${val} minutes — Problematic. Beyond 15 min, actual viewing plateaus regardless of real duration. A ${val}-min video won't be watched more than a 12-min one. Split it.`;
+        style = 'background:rgba(228,99,46,0.12);border-left:4px solid #E4632E;color:#0D1617;';
+      }
     }
     fb.innerHTML = msg;
     fb.style.cssText = style + 'padding:12px 16px;border-radius:8px;font-size:0.92rem;line-height:1.55;';
   }
   updateDuration(5);
 
-  // === CHECKLIST ===
+  // ============================================================
+  // CHECKLIST
+  // ============================================================
   function toggleCheck(item) {
     item.classList.toggle('checked');
     updateProgress();
@@ -993,8 +1314,9 @@
     const checked = document.querySelectorAll('.checklist-item.checked').length;
     const pct = Math.round((checked / total) * 100);
     document.getElementById('progressBar').style.width = pct + '%';
-    document.getElementById('progressLabel').textContent = `Progression : ${checked} / ${total} critères (${pct}%)`;
+    document.getElementById('progressLabel').textContent = T[currentLang]['progress-label'](checked, total, pct);
   }
+  updateProgress();
 </script>
 </body>
 </html>
