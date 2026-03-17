@@ -348,20 +348,7 @@
     line-height: 1.6;
     color: var(--retro-ink);
   }
-  .utilite-detail {
-    display: none;
-    margin-top: 14px;
-    padding-top: 14px;
-    border-top: 2px solid var(--retro-teal-light);
-    font-size: 0.85rem;
-    line-height: 1.65;
-    color: var(--retro-ink);
-  }
-  .utilite-card.open .utilite-detail { display: block; }
-  .utilite-card.open {
-    border-color: var(--retro-orange);
-    box-shadow: inset 0 0 0 2px var(--retro-teal);
-  }
+  .utilite-detail { display: none; }
   .toggle-hint {
     display: inline-flex;
     align-items: center;
@@ -373,6 +360,81 @@
     letter-spacing: 0.1em;
     text-transform: uppercase;
   }
+
+  /* === MODAL UTILITE === */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(13,22,23,0.75);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    backdrop-filter: blur(4px);
+  }
+  .modal-overlay.open { display: flex; }
+  .modal-box {
+    background: var(--retro-paper);
+    border: 3px solid var(--retro-orange);
+    border-radius: 24px 8px 24px 8px;
+    box-shadow: inset 0 0 0 2px var(--retro-teal), 0 28px 70px rgba(0,0,0,0.55);
+    max-width: 580px;
+    width: 100%;
+    padding: 38px 34px 30px;
+    position: relative;
+    animation: modalIn 0.25s ease;
+  }
+  @keyframes modalIn {
+    from { opacity: 0; transform: scale(0.92) translateY(14px); }
+    to   { opacity: 1; transform: scale(1)    translateY(0);    }
+  }
+  .modal-box::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--retro-teal), var(--retro-orange), var(--retro-jaune));
+    border-radius: 24px 8px 0 0;
+  }
+  .modal-icon { font-size: 3rem; display: block; margin-bottom: 14px; }
+  .modal-title {
+    font-family: Impact, 'Anton', sans-serif;
+    font-size: 1.4rem;
+    letter-spacing: 0.08em;
+    color: var(--retro-teal);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .modal-summary {
+    font-size: 0.9rem;
+    color: var(--retro-ink);
+    opacity: 0.8;
+    margin-bottom: 18px;
+    line-height: 1.55;
+  }
+  .modal-detail {
+    font-size: 0.88rem;
+    line-height: 1.75;
+    color: var(--retro-ink);
+    border-top: 2px solid var(--retro-teal-light);
+    padding-top: 16px;
+  }
+  .modal-close {
+    position: absolute;
+    top: 14px; right: 16px;
+    background: var(--retro-ink);
+    border: none;
+    color: var(--retro-paper);
+    font-size: 1rem;
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: background 0.2s;
+    line-height: 1;
+  }
+  .modal-close:hover { background: var(--retro-orange); }
 
   /* === ILLUSIONS TABLE === */
   .illusions-wrap {
@@ -724,11 +786,11 @@
   <!-- ============== SECTION 2 : UTILITES ============== -->
   <section class="section" id="sec-utilites">
     <h2 class="section-title" data-i18n="s2-title">Les 6 Utilités Clés</h2>
-    <p class="section-intro" data-i18n="s2-intro">Cliquez sur chaque carte pour développer l'explication détaillée et les conseils pratiques.</p>
+    <p class="section-intro" data-i18n="s2-intro">Cliquez sur chaque carte pour ouvrir l'explication détaillée et les conseils pratiques.</p>
 
     <div class="utilites-grid">
 
-      <div class="utilite-card" onclick="toggleUtilite(this)">
+      <div class="utilite-card" onclick="openUtiliteModal(this)">
         <span class="utilite-icon">⏸</span>
         <h3 data-i18n="s2-u1-h3">Flexibilité du Rythme</h3>
         <p data-i18n="s2-u1-p">L'apprenant peut mettre en pause, revenir en arrière, revoir. Impossible dans un exposé magistral.</p>
@@ -736,10 +798,10 @@
           <strong>Pourquoi c'est décisif :</strong> Pour les publics hétérogènes, les apprenants allophones, ou ceux qui traitent l'information plus lentement, cette flexibilité change tout. Elle réduit l'anxiété liée au rythme imposé par l'enseignant.<br><br>
           <strong>En pratique :</strong> Encouragez vos apprenants à visionner avec un crayon — noter, pauser, noter encore. C'est ce geste qui transforme le visionnage passif en apprentissage actif.
         </div>
-        <span class="toggle-hint" data-i18n="hint-expand">▼ Développer</span>
+        <span class="toggle-hint" data-i18n="hint-expand">▶ En savoir plus</span>
       </div>
 
-      <div class="utilite-card" onclick="toggleUtilite(this)">
+      <div class="utilite-card" onclick="openUtiliteModal(this)">
         <span class="utilite-icon">🎬</span>
         <h3 data-i18n="s2-u2-h3">Visualisation du Mouvement</h3>
         <p data-i18n="s2-u2-p">Certains contenus sont intrinsèquement dynamiques : gestes professionnels, procédures, évolutions temporelles.</p>
@@ -747,10 +809,10 @@
           <strong>Ce qu'aucun texte ne peut faire :</strong> Montrer comment tenir un outil, réaliser une soudure, pratiquer un massage. La vidéo permet la démonstration de séquences que les images fixes et le texte ne peuvent qu'approximer.<br><br>
           <strong>Pertinence particulière</strong> dans les formations professionnelles (métiers manuels, soins, techniques).
         </div>
-        <span class="toggle-hint" data-i18n="hint-expand">▼ Développer</span>
+        <span class="toggle-hint" data-i18n="hint-expand">▶ En savoir plus</span>
       </div>
 
-      <div class="utilite-card" onclick="toggleUtilite(this)">
+      <div class="utilite-card" onclick="openUtiliteModal(this)">
         <span class="utilite-icon">🔄</span>
         <h3 data-i18n="s2-u3-h3">Classe Inversée</h3>
         <p data-i18n="s2-u3-p">Le contenu informatif est visionné en dehors de la classe. Le temps en présentiel est libéré pour la pratique.</p>
@@ -758,10 +820,10 @@
           <strong>Le principe de Bergmann &amp; Sams (2012) :</strong> Si les apprenants ont été exposés au contenu avant la séance, l'enseignant peut consacrer 100% du temps de face-à-face à l'exercice, la remédiation et l'interaction.<br><br>
           <strong>Attention :</strong> La classe inversée ne fonctionne que si les apprenants ont réellement visionné la vidéo. Prévoyez un court dispositif de vérification (quiz rapide, question d'entrée).
         </div>
-        <span class="toggle-hint" data-i18n="hint-expand">▼ Développer</span>
+        <span class="toggle-hint" data-i18n="hint-expand">▶ En savoir plus</span>
       </div>
 
-      <div class="utilite-card" onclick="toggleUtilite(this)">
+      <div class="utilite-card" onclick="openUtiliteModal(this)">
         <span class="utilite-icon">💡</span>
         <h3 data-i18n="s2-u4-h3">Émotion &amp; Mémorisation</h3>
         <p data-i18n="s2-u4-p">Une narration incarnée active la mémoire épisodique davantage qu'un texte académique.</p>
@@ -769,10 +831,10 @@
           <strong>Immordino-Yang (2015) :</strong> Les travaux sur émotion et cognition montrent que l'affect joue un rôle actif dans la consolidation des apprentissages. On retient mieux ce qu'on a vécu comme une histoire.<br><br>
           <strong>Implication pratique :</strong> Une vidéo avec un récit, un exemple concret, une voix vivante sera bien plus mémorisée qu'un texte narré sur fond de slides.
         </div>
-        <span class="toggle-hint" data-i18n="hint-expand">▼ Développer</span>
+        <span class="toggle-hint" data-i18n="hint-expand">▶ En savoir plus</span>
       </div>
 
-      <div class="utilite-card" onclick="toggleUtilite(this)">
+      <div class="utilite-card" onclick="openUtiliteModal(this)">
         <span class="utilite-icon">🖱</span>
         <h3 data-i18n="s2-u5-h3">Interactivité Possible</h3>
         <p data-i18n="s2-u5-p">Intégrée dans H5P ou d'autres outils, la vidéo peut devenir un parcours actif avec questions intercalées.</p>
@@ -780,10 +842,10 @@
           <strong>H5P Interactive Video :</strong> Permet d'insérer des questions à choix multiple, des points d'arrêt avec texte, des branchements. La vidéo cesse d'être un support passif.<br><br>
           <strong>Lien avec Bloom :</strong> Selon le niveau taxonomique visé (mémoriser, comprendre, appliquer, analyser), on n'utilise pas la vidéo de la même façon — ni les mêmes types d'interactions.
         </div>
-        <span class="toggle-hint" data-i18n="hint-expand">▼ Développer</span>
+        <span class="toggle-hint" data-i18n="hint-expand">▶ En savoir plus</span>
       </div>
 
-      <div class="utilite-card" onclick="toggleUtilite(this)">
+      <div class="utilite-card" onclick="openUtiliteModal(this)">
         <span class="utilite-icon">♿</span>
         <h3 data-i18n="s2-u6-h3">Accessibilité &amp; Différenciation</h3>
         <p data-i18n="s2-u6-p">Sous-titres, ralenti, répétitions illimitées : la vidéo peut s'adapter aux besoins spécifiques.</p>
@@ -791,7 +853,7 @@
           <strong>Pour les apprenants allophones :</strong> La combinaison image + parole + possibilité de sous-titres en langue d'origine est un levier d'inclusion puissant.<br><br>
           <strong>Pour les DYS :</strong> Le canal auditif peut compenser les difficultés de lecture, à condition que la vidéo soit bien conçue vocalement (débit, clarté, articulation).
         </div>
-        <span class="toggle-hint" data-i18n="hint-expand">▼ Développer</span>
+        <span class="toggle-hint" data-i18n="hint-expand">▶ En savoir plus</span>
       </div>
 
     </div>
@@ -972,6 +1034,17 @@
 
 </div>
 
+<!-- === MODAL UTILITE === -->
+<div class="modal-overlay" id="utiliteModal" onclick="handleModalOverlayClick(event)">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeUtiliteModal()" aria-label="Fermer">✕</button>
+    <span class="modal-icon" id="modalIcon"></span>
+    <div class="modal-title" id="modalTitle"></div>
+    <div class="modal-summary" id="modalSummary"></div>
+    <div class="modal-detail" id="modalDetail"></div>
+  </div>
+</div>
+
 <script>
   // ============================================================
   // TRANSLATIONS
@@ -1006,7 +1079,7 @@
       's1-c3-example': '⚠ Regarder une vidéo sans activité cognitive associée = mémorisation proche de zéro après 24h.',
       // Section 2
       's2-title': 'Les 6 Utilités Clés',
-      's2-intro': 'Cliquez sur chaque carte pour développer l\'explication détaillée et les conseils pratiques.',
+      's2-intro': 'Cliquez sur chaque carte pour ouvrir l\'explication détaillée et les conseils pratiques.',
       's2-u1-h3': 'Flexibilité du Rythme',
       's2-u1-p': 'L\'apprenant peut mettre en pause, revenir en arrière, revoir. Impossible dans un exposé magistral.',
       's2-u1-detail': '<strong>Pourquoi c\'est décisif :</strong> Pour les publics hétérogènes, les apprenants allophones, ou ceux qui traitent l\'information plus lentement, cette flexibilité change tout. Elle réduit l\'anxiété liée au rythme imposé par l\'enseignant.<br><br><strong>En pratique :</strong> Encouragez vos apprenants à visionner avec un crayon — noter, pauser, noter encore. C\'est ce geste qui transforme le visionnage passif en apprentissage actif.',
@@ -1025,8 +1098,7 @@
       's2-u6-h3': 'Accessibilité &amp; Différenciation',
       's2-u6-p': 'Sous-titres, ralenti, répétitions illimitées : la vidéo peut s\'adapter aux besoins spécifiques.',
       's2-u6-detail': '<strong>Pour les apprenants allophones :</strong> La combinaison image + parole + possibilité de sous-titres en langue d\'origine est un levier d\'inclusion puissant.<br><br><strong>Pour les DYS :</strong> Le canal auditif peut compenser les difficultés de lecture, à condition que la vidéo soit bien conçue vocalement (débit, clarté, articulation).',
-      'hint-expand': '▼ Développer',
-      'hint-collapse': '▲ Réduire',
+      'hint-expand': '▶ En savoir plus',
       // Section 3
       's3-title': 'Les Illusions à Déjouer',
       's3-intro': 'Ce que les enseignants croient souvent à propos de la vidéo — et ce que la recherche en dit réellement.',
@@ -1114,7 +1186,7 @@
       's1-c3-example': '⚠ Watching a video without associated cognitive activity = near-zero retention after 24h.',
       // Section 2
       's2-title': 'The 6 Key Benefits',
-      's2-intro': 'Click on each card to expand the detailed explanation and practical tips.',
+      's2-intro': 'Click on each card to open the detailed explanation and practical tips.',
       's2-u1-h3': 'Pace Flexibility',
       's2-u1-p': 'Learners can pause, rewind, rewatch. Impossible in a lecture.',
       's2-u1-detail': '<strong>Why it matters:</strong> For heterogeneous groups, allophone learners, or those who process information more slowly, this flexibility changes everything. It reduces the anxiety of keeping up with the teacher\'s pace.<br><br><strong>In practice:</strong> Encourage your learners to watch with a pencil — take notes, pause, take more notes. It\'s this gesture that transforms passive viewing into active learning.',
@@ -1133,8 +1205,7 @@
       's2-u6-h3': 'Accessibility &amp; Differentiation',
       's2-u6-p': 'Subtitles, slow motion, unlimited replays: video can adapt to specific needs.',
       's2-u6-detail': '<strong>For allophone learners:</strong> The combination of image + speech + possibility of subtitles in the native language is a powerful inclusion tool.<br><br><strong>For learners with dyslexia:</strong> The auditory channel can compensate for reading difficulties, provided the video is well designed vocally (pace, clarity, articulation).',
-      'hint-expand': '▼ Expand',
-      'hint-collapse': '▲ Collapse',
+      'hint-expand': '▶ Learn more',
       // Section 3
       's3-title': 'Illusions to Overcome',
       's3-intro': 'What teachers often believe about video — and what research actually says.',
@@ -1236,21 +1307,35 @@
   }
 
   // ============================================================
-  // UTILITES TOGGLE
+  // UTILITES MODAL
   // ============================================================
-  function toggleUtilite(card) {
-    const isOpen = card.classList.contains('open');
-    document.querySelectorAll('.utilite-card').forEach(c => {
-      c.classList.remove('open');
-      const hint = c.querySelector('.toggle-hint');
-      if (hint) hint.textContent = T[currentLang]['hint-expand'];
-    });
-    if (!isOpen) {
-      card.classList.add('open');
-      const hint = card.querySelector('.toggle-hint');
-      if (hint) hint.textContent = T[currentLang]['hint-collapse'];
-    }
+  function openUtiliteModal(card) {
+    const icon    = card.querySelector('.utilite-icon').textContent;
+    const title   = card.querySelector('h3').textContent;
+    const summary = card.querySelector('p').innerHTML;
+    const detail  = card.querySelector('.utilite-detail').innerHTML;
+
+    document.getElementById('modalIcon').textContent    = icon;
+    document.getElementById('modalTitle').textContent   = title;
+    document.getElementById('modalSummary').innerHTML   = summary;
+    document.getElementById('modalDetail').innerHTML    = detail;
+
+    document.getElementById('utiliteModal').classList.add('open');
+    document.body.style.overflow = 'hidden';
   }
+
+  function closeUtiliteModal() {
+    document.getElementById('utiliteModal').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  function handleModalOverlayClick(e) {
+    if (e.target === document.getElementById('utiliteModal')) closeUtiliteModal();
+  }
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeUtiliteModal();
+  });
 
   // ============================================================
   // DURATION SLIDER
